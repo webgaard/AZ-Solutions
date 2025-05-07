@@ -1,0 +1,55 @@
+:root {
+  /* ==== Theme Variables (Default: Light) ==== */
+  --color-bg: #f1f1f1; /* Light background */
+  --color-text: #0e0e0e; /* Dark text */
+  --color-text-muted: #555555;
+  --color-grid-line: rgba(0, 0, 0, 0.05);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(0, 0, 0, 0.1);
+
+  /* Keep original color names for reference if needed, but don't use directly */
+  --_color-bg-dark-ref: #0e0e0e;
+  --_color-bg-light-ref: #f1f1f1;
+  --_color-text-main-ref: #f1f1f1; /* Original text assumed for dark */
+  --_color-text-muted-ref: #b3b3b3; /* Original muted text */
+
+  /* ==== Spacing (rem-based) ==== */
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  /* ==== Typography ==== */
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-xxl: 3rem;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+
+  /* ==== Layout / Grid ==== */
+  --grid-size: 30px;
+  --max-width: 1200px;
+
+  /* ==== Glassmorphism ==== */
+  --glass-blur: blur(10px); /* Adjusted blur slightly */
+  /* Glass BG/Border defined above per theme */
+
+}
+
+body.dark-theme {
+  /* ==== Dark Theme Overrides ==== */
+  --color-bg: var(--_color-bg-dark-ref); /* #0e0e0e */
+  --color-text: var(--_color-text-main-ref); /* #f1f1f1 */
+  --color-text-muted: var(--_color-text-muted-ref); /* #b3b3b3 */
+  --color-grid-line: rgba(255, 255, 255, 0.05);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(170, 170, 170, 0.06);
+  --glass-border: rgba(200, 200, 200, 0.15);
+}

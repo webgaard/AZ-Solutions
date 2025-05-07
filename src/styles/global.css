@@ -1,0 +1,131 @@
+/* ==== Global Reset (basic) ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ==== Body Styling ==== */
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* Use CSS Variables for theme */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  overflow-x: hidden;
+  /* Add transition for smooth theme change */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==== Architectural Grid Background ==== */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  /* Use CSS variable for grid line color */
+  background-image:
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size); /* Use variable for grid size too */
+  z-index: 0;
+  /* Add transition for grid color change */
+  transition: background-image 0.3s ease; /* May not transition smoothly, but worth a try */
+}
+
+/* ==== Link Styling ==== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+/* ==== Image Styling ==== */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ==== Utility Classes ==== */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ==== Utility Controls Container ==== */
+#utility-controls-container {
+  position: fixed;
+  /* Move to bottom center */
+  bottom: 1rem; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11; /* Higher than header */
+
+  /* Add container styling */
+  padding: 0.5rem 1rem; /* Add padding */
+  background: var(--glass-bg); /* Glass background */
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px; /* Rounded corners for the container */
+
+  display: flex;
+  gap: 0.75rem;
+}
+
+#utility-controls-container button {
+  /* Reuse styles from header buttons or define new ones */
+  background: var(--glass-bg); /* Keep button background for consistency or adjust */
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#utility-controls-container button:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+  background: rgba(255, 255, 255, 0.6); /* Slightly lighter on hover */
+}
+
+/* Dark theme adjustments for utility controls */
+/* Container background adjusts automatically via variables */
+body.dark-theme #utility-controls-container button {
+    background: rgba(170, 170, 170, 0.15); /* Darker glass for dark mode */
+}
+
+body.dark-theme #utility-controls-container button:hover {
+    background: rgba(170, 170, 170, 0.25); /* Slightly lighter dark glass on hover */
+}

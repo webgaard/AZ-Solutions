@@ -1,0 +1,237 @@
+<!-- Main Panel Component -->
+<aside class="side-panel" id="mainPanel" aria-label="Main Navigation Panel">
+    <!-- Force reload Font Awesome for dynamically loaded component -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Local fallback for Font Awesome -->
+    <link rel="stylesheet" href="../src/styles/vendors/fontawesome/css/all.min.css">
+    <!-- Inline styles to ensure icons display correctly -->
+    <style>
+        .fa-solid,
+        .fa-brands,
+        .fas,
+        .fab,
+        .far,
+        .fa-regular {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome" !important;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+
+        .fa-solid,
+        .fas {
+            font-weight: 900 !important;
+        }
+
+        .fa-brands,
+        .fab {
+            font-weight: 400 !important;
+        }
+
+        .fa-regular,
+        .far {
+            font-weight: 400 !important;
+        }
+
+        /* Unicode icon styles */
+        .icon-unicode {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome" !important;
+            font-weight: 900;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+            width: 1.25em;
+            text-align: center;
+        }
+
+        /* Fallback for icons using SVG */
+        .icon-svg {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            vertical-align: -0.125em;
+        }
+    </style>
+
+    <!-- Main Navigation -->
+    <nav class="panel-nav" role="navigation">
+
+        <h1 class="brand-title">AZ10</h1>
+        <p class="brand-tag">/æz dæh/</p>
+
+        <ul class="nav-list">
+            <!-- Discover Section - Active for MVP (Landing Page) -->
+            <li class="nav-item">
+                <a href="/" class="nav-link" aria-expanded="false">
+                    <span class="icon-unicode" aria-hidden="true">&#xf58f;</span>
+                    <span class="nav-text" data-translate="discover">Discover</span>
+                </a>
+            </li>
+
+            <!-- Artists Section - Active for MVP -->
+            <li class="nav-item">
+                <a href="/artists" class="nav-link" aria-expanded="false">
+                    <span class="icon-unicode" aria-hidden="true">&#xf0c0;</span>
+                    <span class="nav-text" data-translate="artists">Artists</span>
+                </a>
+            </li>
+
+            <!-- Charts Section - Disabled -->
+            <li class="nav-item">
+                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+                    <span class="icon-unicode" aria-hidden="true">&#xf411;</span>
+                    <span class="nav-text" data-translate="charts">Charts</span>
+                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
+                </a>
+            </li>
+
+            <!-- Blog Section - Disabled -->
+            <li class="nav-item">
+                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+                    <span class="icon-unicode" aria-hidden="true">&#xe0b7;</span>
+                    <span class="nav-text" data-translate="blog">Blog</span>
+                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
+                </a>
+            </li>
+
+            <!-- More Section - Disabled -->
+            <li class="nav-item">
+                <a href="#" class="nav-link disabled" aria-expanded="false" aria-disabled="true">
+                    <span class="icon-unicode" aria-hidden="true">&#xf141;</span>
+                    <span class="nav-text" data-translate="more">More</span>
+                    <span class="coming-soon-badge" data-translate="coming_soon">Coming Soon</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Theme Toggle Button -->
+        <div class="theme-switcher">
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="icon-theme"></i>
+            </button>
+        </div>
+
+        <!-- Auth Buttons -->
+        <div class="auth-buttons">
+            <a href="/signup" class="auth-btn signup-btn">
+                <span class="icon-unicode" aria-hidden="true">&#xf234;</span>
+                <span data-translate="signup">Sign Up</span>
+            </a>
+            <a href="/signin" class="auth-btn signin-btn">
+                <span class="icon-unicode" aria-hidden="true">&#xf2f6;</span>
+                <span data-translate="signin">Sign In</span>
+            </a>
+        </div>
+
+    </nav>
+
+    <!-- Panel Footer -->
+    <footer class="panel-footer">
+
+        <!-- Social Media Links -->
+        <div class="social-section" role="complementary" aria-label="Social Media Links">
+            <h2 class="social-title">Connect With Us</h2>
+            <div class="social-links">
+                <a href="https://instagram.com/az10__music" class="social-icon" target="_blank"
+                    rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                    <span class="icon-unicode" aria-hidden="true">&#xf16d;</span>
+                </a>
+                <a href="https://x.com/az10_music" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Follow us on X">
+                    <span class="icon-unicode" aria-hidden="true">&#xe61b;</span>
+                </a>
+                <a href="https://t.me/az10_music" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Join our Telegram">
+                    <span class="icon-unicode" aria-hidden="true">&#xf2c6;</span>
+                </a>
+                <a href="https://youtube.com/@az10-music" class="social-icon" target="_blank" rel="noopener noreferrer"
+                    aria-label="Subscribe on YouTube">
+                    <span class="icon-unicode" aria-hidden="true">&#xf167;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer Information -->
+        <div class="footer-info">
+            <div class="copyright">
+                <p>&copy; <time datetime="2025">2025</time> AZ10</p>
+                <p>All rights reserved</p>
+            </div>
+            <div class="footer-taglines">
+                <p>By The Community / For The Community</p>
+                <p aria-hidden="true">AI-Driven / MVP / Test Version </p>
+            </div>
+        </div>
+    </footer>
+</aside>
+
+<!-- Mobile Navigation Bar -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+    <a href="/" class="nav-item" aria-label="Discover">
+        <span class="icon-unicode" aria-hidden="true">&#xf58f;</span>
+    </a>
+    <a href="/artists" class="nav-item" aria-label="Artists">
+        <span class="icon-unicode" aria-hidden="true">&#xf0c0;</span>
+    </a>
+    <span class="nav-item disabled" aria-label="Charts" aria-disabled="true">
+        <span class="icon-unicode" aria-hidden="true">&#xf091;</span>
+    </span>
+    <span class="nav-item disabled" aria-label="Blog" aria-disabled="true">
+        <span class="icon-unicode" aria-hidden="true">&#xe0b7;</span>
+    </span>
+    <button class="nav-item settings-toggle" id="mobileSettings" aria-label="Open Settings Menu" aria-expanded="false"
+        aria-controls="mainPanel">
+        <span class="icon-unicode" aria-hidden="true">&#xf0c9;</span>
+    </button>
+</nav>
+
+<!-- Skip to Main Content Link (Accessibility) -->
+<a href="#main-content" class="skip-to-main sr-only">Skip to main content</a>
+<!-- Add JavaScript for handling the new header controls -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Original panel buttons
+        const themeToggle = document.getElementById('themeToggle');
+        const langToggle = document.getElementById('langToggle');
+
+        // New header control buttons
+        const newThemeToggle = document.getElementById('newThemeToggle');
+        const newLangToggle = document.getElementById('newLangToggle');
+
+        // Theme toggle synchronization
+        if (themeToggle && newThemeToggle) {
+            // Sync theme button states
+            newThemeToggle.addEventListener('click', function () {
+                // Trigger the original theme toggle button
+                themeToggle.click();
+            });
+        }
+
+        // Language toggle synchronization
+        if (langToggle && newLangToggle) {
+            // Sync language button states
+            newLangToggle.addEventListener('click', function () {
+                // Trigger the original language toggle button
+                langToggle.click();
+            });
+
+            // Ensure the language display is synced
+            const updateLanguageDisplay = function () {
+                const langText = langToggle.querySelector('.button-text').textContent;
+                newLangToggle.querySelector('.button-text').textContent = langText;
+            };
+
+            // Initial sync
+            updateLanguageDisplay();
+
+            // Observe changes to the original button
+            langToggle.addEventListener('click', function () {
+                setTimeout(updateLanguageDisplay, 100); // Small delay to allow for updates
+            });
+        }
+    });
+</script>

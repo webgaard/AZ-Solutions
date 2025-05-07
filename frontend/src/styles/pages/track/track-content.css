@@ -1,0 +1,329 @@
+/* Track Template Styles - با حفظ طراحی اصلی سایت */
+
+/* بخش‌های مربوط به جزئیات ترک */
+.track-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Header Section */
+.track-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .track-header {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 4rem;
+    }
+    
+    /* Add a nice background to enhance the track cover */
+    .track-cover::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        left: -10%;
+        width: 120%;
+        height: 120%;
+        background: radial-gradient(circle at center, rgba(var(--color-primary-rgb), 0.15), transparent 70%);
+        z-index: -1;
+        opacity: 0.8;
+        border-radius: 50%;
+        pointer-events: none;
+    }
+}
+
+/* کاور آهنگ - استایل ساده و مدرن */
+.track-cover {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+
+/* افکت هاور ساده و شیک */
+.track-cover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* گرادیان ملایم روی هاور */
+.track-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.track-cover:hover::before {
+    opacity: 1;
+}
+
+/* Track Info */
+.track-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.track-title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    margin-bottom: .5rem;
+}
+
+.artist-name {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.track-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+}
+
+.meta-item i {
+    font-size: 1rem;
+    color: var(--color-primary);
+}
+
+.video-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff3d3d;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.video-badge i {
+    font-size: 1rem;
+}
+
+/* Links Section */
+.track-links {
+    margin-top: 2rem;
+}
+
+.links-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.links-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 40px;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.platform-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.platform-link:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    transform: translateY(-2px);
+}
+
+.platform-link i {
+    font-size: 1.2rem;
+}
+
+/* Description Section */
+.track-description {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.description-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+.description-content {
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+}
+
+/* Video Section */
+.track-video {
+    margin-top: 3rem;
+}
+
+.video-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Loading and Error States */
+.loading-container, 
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    text-align: center;
+    padding: 2rem;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(var(--color-primary-rgb), 0.2);
+    border-left-color: var(--color-primary);
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    animation: spin 1s linear infinite;
+}
+
+.error-container i {
+    font-size: 3rem;
+    color: #ff3d3d;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: var(--color-text-secondary);
+    max-width: 600px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Dark/Light Mode Adjustments */
+[data-theme="light"] .track-cover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .platform-link:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .video-badge {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+/* برای موبایل، پنل کناری را مخفی و محتوا را بدون حاشیه نمایش می‌دهیم */
+@media (max-width: 768px) {
+    .side-panel {
+        width: 0;
+        overflow: hidden;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Add responsive sizing for larger screens */
+@media (min-width: 992px) {
+    .track-cover {
+        max-width: 600px;
+        height: 600px;
+    }
+    
+    .track-header {
+        gap: 5rem;
+    }
+    
+    .track-details-container {
+        padding: 3rem;
+    }
+} 

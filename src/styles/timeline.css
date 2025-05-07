@@ -1,0 +1,108 @@
+/* src/styles/timeline.css */
+
+.timeline-container {
+  width: 90%;
+  max-width: var(--max-width); /* Use max-width from variables */
+  margin: var(--spacing-lg) auto; /* Add top/bottom margin */
+  position: relative;
+  padding: var(--spacing-md) 0;
+}
+
+/* The vertical timeline line */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  /* Position slightly left to align markers */
+  left: calc(var(--spacing-sm) + 6px); /* Adjust based on marker size/padding */
+  transform: translateX(-50%);
+  height: 100%;
+  width: 2px;
+  background-color: var(--color-border);
+  z-index: 1;
+}
+
+.timeline-item {
+  position: relative;
+  /* Space below each item */
+  margin-bottom: var(--spacing-md);
+  /* Add padding to the left for the line and marker */
+  padding-left: calc(var(--spacing-sm) * 2 + var(--spacing-md));
+  z-index: 2; /* Ensure item content is above the line */
+}
+
+/* Ensure the last item doesn't have extra margin */
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  /* Align with the main line */
+  left: var(--spacing-sm);
+  top: 5px; /* Adjust vertical alignment as needed */
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-text); /* Use text color for the marker */
+  border: 3px solid var(--color-bg); /* Make it look like it's "on" the background */
+  border-radius: 50%;
+  z-index: 3; /* Marker above the line */
+  transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-marker {
+  transform: scale(1.2); /* Slightly enlarge marker on hover */
+}
+
+.timeline-content {
+  background-color: var(--glass-bg); /* Subtle background */
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+   border-color: var(--color-text-muted); /* Highlight border on hover */
+}
+
+.timeline-content h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timeline-content p {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.7;
+}
+
+.timeline-date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-light);
+  display: block; /* Ensure it takes its own line or space */
+  margin-top: var(--spacing-xs);
+}
+
+/* Responsive adjustments (optional example) */
+@media (max-width: 768px) {
+  .timeline-container::before {
+    left: 15px; /* Move line closer to edge on smaller screens */
+  }
+  .timeline-item {
+     padding-left: 45px; /* Adjust padding */
+  }
+  .timeline-marker {
+    left: 8px; /* Adjust marker position */
+  }
+  .timeline-content h3 {
+     font-size: var(--font-size-base); /* Slightly smaller heading */
+  }
+   .timeline-content p {
+     font-size: var(--font-size-sm); /* Smaller text */
+  }
+} 

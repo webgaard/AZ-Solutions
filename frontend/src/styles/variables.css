@@ -1,9 +1,9 @@
 :root {
   /* ==== Theme Variables (Default: Light) ==== */
-  --color-bg: #f1f1f1; /* Light background */
+  --color-bg: #dddddd; /* Light background */
   --color-text: #0e0e0e; /* Dark text */
-  --color-text-muted: #555555;
-  --color-grid-line: rgba(0, 0, 0, 0.05);
+  --color-text-muted: #767676;
+  --color-grid-line: rgba(108, 108, 108, 0.05);
   --color-border: rgba(0, 0, 0, 0.1);
   --glass-bg: rgba(255, 255, 255, 0.4);
   --glass-border: rgba(0, 0, 0, 0.1);
@@ -11,8 +11,8 @@
   /* Keep original color names for reference if needed, but don't use directly */
   --_color-bg-dark-ref: #0e0e0e;
   --_color-bg-light-ref: #f1f1f1;
-  --_color-text-main-ref: #f1f1f1; /* Original text assumed for dark */
-  --_color-text-muted-ref: #b3b3b3; /* Original muted text */
+  --_color-text-main-ref: #828282; /* Original text assumed for dark */
+  --_color-text-muted-ref: #3d3d3d; /* Original muted text */
 
   /* ==== Spacing (rem-based) ==== */
   --spacing-xxs: 0.25rem;
@@ -34,7 +34,7 @@
   --font-weight-bold: 600;
 
   /* ==== Layout / Grid ==== */
-  --grid-size: 30px;
+  --grid-size: 40px;
   --max-width: 1200px;
 
   /* ==== Glassmorphism ==== */
@@ -48,8 +48,8 @@ body.dark-theme {
   --color-bg: var(--_color-bg-dark-ref); /* #0e0e0e */
   --color-text: var(--_color-text-main-ref); /* #f1f1f1 */
   --color-text-muted: var(--_color-text-muted-ref); /* #b3b3b3 */
-  --color-grid-line: rgba(255, 255, 255, 0.05);
+  --color-grid-line: rgba(0, 0, 0, 0.2);
   --color-border: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(170, 170, 170, 0.06);
+  --glass-bg: rgba(0, 0, 0, 0.96);
   --glass-border: rgba(200, 200, 200, 0.15);
 }

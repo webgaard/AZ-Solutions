@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  fetch('/src/components/header.html') // Assuming header component is here
+  fetch('../src/components/header.html') // Assuming header component is here
     .then(response => response.text())
     .then(data => {
       const headerPlaceholder = document.getElementById('main-header');

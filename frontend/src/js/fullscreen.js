@@ -1,6 +1,12 @@
 const fullscreenButton = document.getElementById('fullscreen-button'); // Ensure you have a button with this ID in your HTML
 const docElement = document.documentElement;
 
+// Create fullscreen text element
+const fullscreenText = document.createElement('span');
+fullscreenText.className = 'fullscreen-text';
+fullscreenText.textContent = 'FullScreen';
+fullscreenButton.parentElement.appendChild(fullscreenText);
+
 fullscreenButton.addEventListener('click', () => {
   toggleFullScreen();
 });

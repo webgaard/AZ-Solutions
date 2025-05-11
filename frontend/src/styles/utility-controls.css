@@ -1,0 +1,345 @@
+/* ==== Utility Controls Container ==== */
+#utility-controls-container {
+  position: absolute; /* Change from fixed to absolute so it's inside main-container */
+  z-index: 1001; /* Ensure it's above other elements like a potential overlay */
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Allow clicks to pass through container to elements below */
+  top: 0;
+  left: 0;
+}
+
+/* RTL support will be handled in individual controls */
+
+/* Individual utility control wrapper */
+.utility-control {
+  position: absolute;
+  pointer-events: auto; /* Restore pointer events for the controls */
+}
+
+/* Position the menu control at bottom left corner */
+#utility-controls-container .menu-control {
+  bottom: 0.5rem;
+  left: 0.5rem;
+}
+
+/* Position first control (language toggle) at top left corner */
+#utility-controls-container .utility-control:nth-child(2) {
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+/* Position second control (theme toggle) at top right corner */
+#utility-controls-container .utility-control:nth-child(3) {
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+/* Position third control (fullscreen button) at bottom right corner */
+#utility-controls-container .utility-control:nth-child(4) {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+/* RTL support for menu control */
+html[dir="rtl"] #utility-controls-container .menu-control {
+  left: auto;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  top: auto;
+}
+
+/* RTL support for individual controls */
+html[dir="rtl"] #utility-controls-container .utility-control:nth-child(2) {
+  left: auto;
+  right: 0.5rem;
+  top: 0.5rem;
+  bottom: auto;
+}
+
+html[dir="rtl"] #utility-controls-container .utility-control:nth-child(3) {
+  right: auto;
+  left: 0.5rem;
+  top: 0.5rem;
+  bottom: auto;
+}
+
+html[dir="rtl"] #utility-controls-container .utility-control:nth-child(4) {
+  right: auto;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  top: auto;
+}
+
+#utility-controls-container button {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px; /* Circle shape */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Remove background */
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  /* border: 0; */
+  color: var(--color-text-muted); /* Icon color */
+  
+  font-size: var(--font-size-base);
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative; /* For positioning the dot */
+}
+
+/* Add black dot to all utility buttons */
+#utility-controls-container button::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #000; /* Bold black dot */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+#utility-controls-container button i { /* Target icons specifically */
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text);
+  position: relative;
+  z-index: 2; /* Make sure icons appear above the dot if needed */
+  opacity: 0; /* Hide icons as we're using dots instead */
+}
+
+/* Remove hover background effect */
+#utility-controls-container button:hover {
+  transform: scale(1.05);
+  box-shadow: none; /* Remove shadow */
+}
+
+#utility-controls-container button:active {
+  transform: scale(0.95);
+}
+
+/* Dark theme adjustments for utility controls */
+body.dark-theme #utility-controls-container button {
+  color: var(--color-text-muted); /* This will correctly use the dark theme's muted color */
+}
+
+/* Ensure dark theme uses the same dot color */
+body.dark-theme #utility-controls-container button::after {
+  background-color: #fff; /* White dot in dark theme */
+}
+
+/* Responsive: Adjust size on different screens */
+@media (max-width: 768px) { /* Medium screens */
+  #utility-controls-container .utility-control:nth-child(1),
+  #utility-controls-container .utility-control:nth-child(2),
+  #utility-controls-container .utility-control:nth-child(3),
+  #utility-controls-container .utility-control:nth-child(4) {
+    /* Keep the same corner positions, just adjust the button size */
+  }
+  
+  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(1),
+  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(2),
+  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(3),
+  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(4) {
+    /* Keep RTL positioning */
+  }
+  
+  #utility-controls-container button {
+    width: 24px;
+    height: 24px;
+  }
+  
+  #utility-controls-container button i {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) { /* Small screens */
+  #utility-controls-container button {
+    width: 18px;
+    height: 18px;
+  }
+  
+  #utility-controls-container button i {
+    font-size: 0.8em;
+  }
+}
+
+/* Remove the theme dot styles as we're using universal dots now */
+.theme-dot {
+  display: none;
+}
+
+/* Remove fullscreen button square styling */
+#fullscreen-button::before {
+  display: none;
+}
+
+/* Theme toggle text styling */
+.theme-toggle-text {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem; /* Reduced from var(--font-size-sm) to make it smaller */
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+/* RTL support for theme toggle text */
+html[dir="rtl"] .theme-toggle-text {
+  right: auto;
+  left: 2rem;
+}
+
+/* Dark theme adjustments for theme toggle text */
+body.dark-theme .theme-toggle-text {
+  color: var(--color-text-muted);
+}
+
+/* Fullscreen text styling */
+.fullscreen-text {
+  position: absolute;
+  right: 2rem;
+  bottom: 50%;
+  transform: translateY(50%);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+/* RTL support for fullscreen text */
+html[dir="rtl"] .fullscreen-text {
+  right: auto;
+  left: 2rem;
+}
+
+/* Dark theme adjustments for fullscreen text */
+body.dark-theme .fullscreen-text {
+  color: var(--color-text-muted);
+}
+
+/* Menu text styling */
+.menu-text {
+  position: absolute;
+  left: 2rem;
+  bottom: 50%;
+  transform: translateY(50%);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+/* RTL support for menu text */
+html[dir="rtl"] .menu-text {
+  left: auto;
+  right: 2rem;
+}
+
+/* Dark theme adjustments for menu text */
+body.dark-theme .menu-text {
+  color: var(--color-text-muted);
+}
+
+/* Language text styling */
+.lang-text {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+/* RTL support for language text */
+html[dir="rtl"] .lang-text {
+  left: auto;
+  right: 2rem;
+}
+
+/* Dark theme adjustments for language text */
+body.dark-theme .lang-text {
+  color: var(--color-text-muted);
+}
+
+/* Profile text styling */
+.profile-text {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+/* RTL support for profile text */
+html[dir="rtl"] .profile-text {
+  left: auto;
+  right: 2rem;
+}
+
+/* Dark theme adjustments for profile text */
+body.dark-theme .profile-text {
+  color: var(--color-text-muted);
+}
+
+/* Profile panel styling */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-grid-line);
+  margin-bottom: 1.5rem;
+  flex-direction: row-reverse; /* تغییر جهت چیدمان عناصر */
+}
+
+.profile-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#close-profile {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-avatar {
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+} 

@@ -1,4 +1,5 @@
-/* ==== Glassmorphic Header ==== */
+/* ==== Navigation Styles ==== */
+/* Applies to main menu, submenu, and other navigation elements */
 .glass-header {
   position: fixed;
   left: 50%;
@@ -7,9 +8,10 @@
   width: fit-content;
   max-width: 90vw;
   padding: 0.75rem 3rem;
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  /* backdrop-filter: var(--glass-blur); */
+  /* -webkit-backdrop-filter: var(--glass-blur); */
+  /* border: 1px solid var(--glass-border); */
+  border-radius: 0px;
   z-index: 10;
   display: flex;
   justify-content: space-between;
@@ -23,6 +25,25 @@
   bottom: auto;
 }
 
+/* ==== Submenu Header ==== */
+.submenu-header {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: 90vw;
+  padding: 0.75rem 3rem;
+  /* backdrop-filter: var(--glass-blur); */
+  /* -webkit-backdrop-filter: var(--glass-blur); */
+  /* border: 1px solid var(--glass-border); */
+  border-radius: 0px;
+  z-index: 5; /* Lower z-index than main menu */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
 
 .header-container {
   display: flex;
@@ -46,23 +67,18 @@
   padding-bottom: 4px;
 }
 
+/* Removing the underline effect */
 .timeline-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 1px;
-  width: 100%;
-  background-color: var(--color-border);
-  transition: background-color 0.3s ease;
+  display: none;
 }
 
 .timeline-nav a:hover {
   color: var(--color-text);
 }
 
+/* Removing the hover underline effect */
 .timeline-nav a:hover::after {
-  background-color: var(--color-text);
+  display: none;
 }
 
 /* ==== Header Controls ==== */
@@ -149,8 +165,9 @@
   font-weight: var(--font-weight-medium);
 }
 
+/* Removing the active underline effect */
 .timeline-nav a.active::after {
-  background-color: var(--color-text);
+  display: none;
 }
 
 /* ==== Main Menu Header ==== */
@@ -192,30 +209,25 @@
   transition: color 0.3s ease;
 }
 
+/* Removing the underline effect */
 .main-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-text);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  display: none;
 }
 
 .main-nav a:hover {
   color: var(--color-text);
 }
 
+/* Removing the hover underline effect */
 .main-nav a:hover::after {
-  transform: scaleX(1);
+  display: none;
 }
 
 .main-nav a.active {
   color: var(--color-text);
 }
 
+/* Removing the active underline effect */
 .main-nav a.active::after {
-  transform: scaleX(1);
+  display: none;
 }

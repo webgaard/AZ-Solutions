@@ -5,14 +5,14 @@
   --color-text-muted: #767676;
   --color-grid-line: rgba(108, 108, 108, 0.05);
   --color-border: rgba(0, 0, 0, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.4);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(158, 158, 158, 0.4);
+  --glass-border: rgba(0, 0, 0, 0.3);
 
   /* Keep original color names for reference if needed, but don't use directly */
-  --_color-bg-dark-ref: #0e0e0e;
+  --_color-bg-dark-ref: #000000;
   --_color-bg-light-ref: #f1f1f1;
-  --_color-text-main-ref: #828282; /* Original text assumed for dark */
-  --_color-text-muted-ref: #3d3d3d; /* Original muted text */
+  --_color-text-main-ref: #dadada; /* Original text assumed for dark */
+  --_color-text-muted-ref: #707070; /* Original muted text */
 
   /* ==== Spacing (rem-based) ==== */
   --spacing-xxs: 0.25rem;
@@ -48,8 +48,8 @@ body.dark-theme {
   --color-bg: var(--_color-bg-dark-ref); /* #0e0e0e */
   --color-text: var(--_color-text-main-ref); /* #f1f1f1 */
   --color-text-muted: var(--_color-text-muted-ref); /* #b3b3b3 */
-  --color-grid-line: rgba(0, 0, 0, 0.2);
+  --color-grid-line: rgba(20, 20, 20, 0.2);
   --color-border: rgba(255, 255, 255, 0.1);
   --glass-bg: rgba(0, 0, 0, 0.96);
-  --glass-border: rgba(200, 200, 200, 0.15);
+  --glass-border: rgba(150, 150, 150, 0.3);
 }

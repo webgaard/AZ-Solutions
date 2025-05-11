@@ -4,21 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AZ Portfolio</title>
+    <title>AZ Solutions</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../src/styles/variables.css">
     <link rel="stylesheet" href="../src/styles/global.css">
-    <link rel="stylesheet" href="../src/styles/header.css">
+    <link rel="stylesheet" href="../src/styles/navigation.css">
     <link rel="stylesheet" href="../src/styles/timeline.css">
+    <link rel="stylesheet" href="../src/styles/content-position.css">
+    <link rel="stylesheet" href="../src/styles/utility-controls.css">
 
     <!-- Fonts (optional) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
+    <div id="profile-panel" class="hidden">
+        <!-- Profile content will go here -->
+    </div>
+
     <div id="main-container">
         <!-- Utility Controls Container -->
         <div id="utility-controls-container">
@@ -28,8 +37,8 @@
                 </button>
             </div>
             <div class="utility-control">
-                <button id="langToggle" title="Switch Language" aria-label="Switch Language">
-                    <i class="fas fa-globe"></i> <!-- Placeholder, assuming FA is available -->
+                <button id="profileToggle" title="User Profile" aria-label="User Profile">
+                    <i class="fas fa-user"></i> <!-- Profile icon instead of globe -->
                 </button>
             </div>
             <div class="utility-control">
@@ -48,7 +57,11 @@
         <header id="main-header"></header>
 
         <!-- Main content area -->
-        <main id="app-content"></main>
+        <main id="app-content">
+            <div class="main-content">
+                <!-- Page content will be dynamically inserted here -->
+            </div>
+        </main>
 
         <!-- No footer as per requirements -->
     </div>
@@ -56,10 +69,10 @@
     <!-- JS (Defer loading) -->
     <script src="../src/js/main.js" defer></script>
     <script src="../src/js/router.js" defer></script>
-    <script src="../src/js/lang.js" defer></script>
     <script src="../src/js/fullscreen.js" defer></script>
     <script src="../src/js/theme.js" defer></script>
     <script src="../src/js/menu.js" defer></script>
+    <script src="../src/js/profile.js" defer></script>
 </body>
 
 </html>

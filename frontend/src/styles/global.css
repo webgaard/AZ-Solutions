@@ -8,14 +8,14 @@
 /* ==== Body Styling ==== */
 body {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #000; /* Black background */
+  background-color: #1c1c1c; /* Black background */
   color: var(--color-text);
   line-height: 1.6;
   min-height: 100vh;
   display: flex; /* For centering the main-container */
   align-items: center; /* For centering the main-container */
   justify-content: center; /* For centering the main-container */
-  padding: .5rem; /* Space outside the main-container */
+  padding: .3rem; /* Space outside the main-container */
   position: relative;
   /* z-index: 1; no longer needed here */
   overflow: hidden; /* Hide scrollbars from body if main-container handles it */
@@ -23,37 +23,74 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Remove direct grid from body */
-/*
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  background-image:
-    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size); 
-  z-index: 0;
-  transition: background-image 0.3s ease;
-}
-*/
 
 /* ==== Main Container Styling ==== */
 #main-container {
-  width: calc(100vw - 1rem); /* Full width minus body padding */
-  height: calc(100vh - 1rem); /* Full height minus body padding */
+  width: calc(100vw - .6rem); /* Full width minus body padding */
+  height: calc(100vh - .6rem); /* Full height minus body padding */
   background-color: var(--color-bg);
   color: var(--color-text);
   border: 1px solid var(--glass-border);
-  border-radius: 15px; /* Rounded corners */
+  border-radius: 26px; /* Rounded corners */
   position: relative; /* For ::before pseudo-element */
   z-index: 1;
   overflow: auto; /* Add scroll if content overflows */
   padding: 1rem; /* Inner padding for content, adjust as needed */
+  transition: transform 0.3s ease, width 0.3s ease; /* Add transition for smooth movement */
+}
+
+/* ==== Profile Panel Styling ==== */
+#profile-panel {
+  position: fixed;
+  top: 0.3rem;
+  left: 0.3rem;
+  width: 20rem; /* 25rem = ~400px at default font size */
+  height: calc(100vh - .6rem);
+  background-color: var(--color-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 26px;
+  z-index: 2;
+  padding: 1rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+#profile-panel.active {
+  transform: translateX(0);
+}
+
+/* When profile is active, move main container */
+body.profile-active #main-container {
+  width: calc(100vw - 15rem - .6rem);
+  transform: translateX(203px);
+}
+
+/* When profile is active, move headers */
+body.profile-active header#main-header:not(#main-container header#main-header),
+body.profile-active .main-menu-header {
+  transform: translateX(200px);
+  transition: transform 0.3s ease;
+}
+
+
+
+/* Special handling for submenu-header (it already has transform) */
+body.profile-active .submenu-header {
+  transform: translateX(calc(-50% + 200px)); 
+}
+
+/* Headers when profile is not active */
+header#main-header:not(#main-container header#main-header),
+.main-menu-header {
+  transition: transform 0.3s ease;
+}
+
+.glass-header {
+  transition: transform 0.3s ease;
+}
+
+.submenu-header {
+  transition: transform 0.3s ease;
 }
 
 /* ==== Architectural Grid Background for Main Container ==== */
@@ -116,203 +153,9 @@ img {
   display: none;
 }
 
-/* ==== Utility Controls Container ==== */
-#utility-controls-container {
-  position: absolute; /* Change from fixed to absolute so it's inside main-container */
-  z-index: 1001; /* Ensure it's above other elements like a potential overlay */
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Allow clicks to pass through container to elements below */
-  top: 0;
-  left: 0;
-}
+/* Skip from here - removing utility controls container section */
 
-/* RTL support will be handled in individual controls */
-
-/* Individual utility control wrapper */
-.utility-control {
-  position: absolute;
-  pointer-events: auto; /* Restore pointer events for the controls */
-}
-
-/* Position the menu control at bottom left corner */
-#utility-controls-container .menu-control {
-  bottom: 0.5rem;
-  left: 0.5rem;
-}
-
-/* Position first control (language toggle) at top left corner */
-#utility-controls-container .utility-control:nth-child(2) {
-  top: 0.5rem;
-  left: 0.5rem;
-}
-
-/* Position second control (theme toggle) at top right corner */
-#utility-controls-container .utility-control:nth-child(3) {
-  top: 0.5rem;
-  right: 0.5rem;
-}
-
-/* Position third control (fullscreen button) at bottom right corner */
-#utility-controls-container .utility-control:nth-child(4) {
-  bottom: 0.5rem;
-  right: 0.5rem;
-}
-
-/* RTL support for menu control */
-html[dir="rtl"] #utility-controls-container .menu-control {
-  left: auto;
-  right: 0.5rem;
-  bottom: 0.5rem;
-  top: auto;
-}
-
-/* RTL support for individual controls */
-html[dir="rtl"] #utility-controls-container .utility-control:nth-child(2) {
-  left: auto;
-  right: 0.5rem;
-  top: 0.5rem;
-  bottom: auto;
-}
-
-html[dir="rtl"] #utility-controls-container .utility-control:nth-child(3) {
-  right: auto;
-  left: 0.5rem;
-  top: 0.5rem;
-  bottom: auto;
-}
-
-html[dir="rtl"] #utility-controls-container .utility-control:nth-child(4) {
-  right: auto;
-  left: 0.5rem;
-  bottom: 0.5rem;
-  top: auto;
-}
-
-#utility-controls-container button {
-  width: 20px;
-  height: 20px;
-  border-radius: 999px; /* Circle shape */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  /* Glassmorphism Style */
-  background: rgba(0, 0, 0, 0.2);
-  border: 0px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px); /* For Safari */
-  color: var(--color-text-muted); /* Icon color */
-  
-  font-size: var(--font-size-base); /* Adjust if icons are too small/large */
-  padding: 0; /* Remove padding if any, rely on flex centering */
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none; /* Remove underline from button if it's an <a> tag */
-  overflow: hidden; /* Ensures content (like icon) respects border-radius */
-}
-
-#utility-controls-container button i { /* Target icons specifically */
-  font-size: 1.25em; /* Adjust icon size relative to button font-size if needed */
-  line-height: 1; /* Helps with vertical alignment of icons */
-}
-
-#utility-controls-container button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  /* Optional: Slightly change background or border on hover for more feedback */
-  /* background: rgba(255, 255, 255, 0.1); */
-  /* border-color: rgba(255, 255, 255, 0.25); */
-}
-
-#utility-controls-container button:active {
-  transform: scale(0.95);
-}
-
-/* Dark theme adjustments for utility controls */
-/* The base glassmorphism style uses light RGBA values, which might look odd on dark theme.
-   Let's refine this. The requirement used (255,255,255) which is white.
-   We might need to adjust this for dark theme or ensure var(--text-muted) is appropriate.
-   The provided variables.css already has --glass-bg and --glass-border for dark theme.
-   It's better to use those if they fit the "Nothing" aesthetic.
-   The user specified literal RGBA values for the buttons.
-   For now, I will stick to the user's RGBA values but add a note about dark theme.
-*/
-
-body.dark-theme #utility-controls-container button {
-  /* If the user's specific RGBA is meant for both themes, no change needed here for bg/border.
-     However, the icon color (--color-text-muted) will adapt based on the theme.
-     If a different glass effect is desired for dark mode, it would be defined here.
-     Example:
-     background: rgba(0, 0, 0, 0.05);
-     border: 1px solid rgba(0, 0, 0, 0.15);
-  */
-  color: var(--color-text-muted); /* This will correctly use the dark theme's muted color */
-}
-
-/* Responsive: Adjust size on different screens */
-@media (max-width: 768px) { /* Medium screens */
-  #utility-controls-container .utility-control:nth-child(1),
-  #utility-controls-container .utility-control:nth-child(2),
-  #utility-controls-container .utility-control:nth-child(3),
-  #utility-controls-container .utility-control:nth-child(4) {
-    /* Keep the same corner positions, just adjust the button size */
-  }
-  
-  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(1),
-  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(2),
-  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(3),
-  html[dir="rtl"] #utility-controls-container .utility-control:nth-child(4) {
-    /* Keep RTL positioning */
-  }
-  
-  #utility-controls-container button {
-    width: 24px;
-    height: 24px;
-  }
-  
-  #utility-controls-container button i {
-    font-size: 0.9em;
-  }
-}
-
-@media (max-width: 480px) { /* Small screens */
-  #utility-controls-container button {
-    width: 18px;
-    height: 18px;
-  }
-  
-  #utility-controls-container button i {
-    font-size: 0.8em;
-  }
-}
-
-/* Theme toggle dots */
-.theme-dot {
-  display: block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  z-index: 2;
-}
-
-.light-dot {
-  background-color: #fff; /* White dot */
-  border: 1px solid rgba(0, 0, 0, 0.2); /* Subtle border to see the white dot */
-}
-
-.dark-dot {
-  background-color: #000; /* Black dot */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border to see the black dot */
-}
-
-/* Show/hide dots based on theme */
+/* Styles for theme and feature specific elements */
 body:not(.dark-theme) .light-dot {
   opacity: 0; /* Hide white dot in light theme */
   transform: translate(-50%, -50%) scale(0.5);
@@ -333,150 +176,4 @@ body.dark-theme .dark-dot {
   transform: translate(-50%, -50%) scale(0.5);
 }
 
-/* Make sure the theme toggle button has no text */
-#themeToggle {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: visible; /* Allow dots to be visible */
-}
-
-/* Menu button dash styling */
-#menuToggle {
-  position: relative;
-}
-
-#menuToggle::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 2px;
-  background-color: var(--color-text);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.3s ease;
-}
-
-body.dark-theme #menuToggle::after {
-  background-color: var(--color-text-muted); /* Uses the dark theme text color */
-}
-
-/* Fullscreen button square styling */
-#fullscreen-button {
-  position: relative;
-}
-
-#fullscreen-button::before {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-text);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.3s ease;
-}
-
-body.dark-theme #fullscreen-button::before {
-  background-color: var(--color-text); /* Uses the dark theme text color */
-}
-
-/* Remove the second line that was part of the X */
-#fullscreen-button::after {
-  display: none;
-}
-
-/* Theme toggle text styling */
-.theme-toggle-text {
-  position: absolute;
-  right: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.75rem; /* Reduced from var(--font-size-sm) to make it smaller */
-  color: var(--color-text-muted);
-  pointer-events: none;
-  transition: color 0.3s ease;
-}
-
-/* RTL support for theme toggle text */
-html[dir="rtl"] .theme-toggle-text {
-  right: auto;
-  left: 2rem;
-}
-
-/* Dark theme adjustments for theme toggle text */
-body.dark-theme .theme-toggle-text {
-  color: var(--color-text-muted);
-}
-
-/* Fullscreen text styling */
-.fullscreen-text {
-  position: absolute;
-  right: 2rem;
-  bottom: 50%;
-  transform: translateY(50%);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  pointer-events: none;
-  transition: color 0.3s ease;
-}
-
-/* RTL support for fullscreen text */
-html[dir="rtl"] .fullscreen-text {
-  right: auto;
-  left: 2rem;
-}
-
-/* Dark theme adjustments for fullscreen text */
-body.dark-theme .fullscreen-text {
-  color: var(--color-text-muted);
-}
-
-/* Menu text styling */
-.menu-text {
-  position: absolute;
-  left: 2rem;
-  bottom: 50%;
-  transform: translateY(50%);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  pointer-events: none;
-  transition: color 0.3s ease;
-}
-
-/* RTL support for menu text */
-html[dir="rtl"] .menu-text {
-  left: auto;
-  right: 2rem;
-}
-
-/* Dark theme adjustments for menu text */
-body.dark-theme .menu-text {
-  color: var(--color-text-muted);
-}
-
-/* Language text styling */
-.lang-text {
-  position: absolute;
-  left: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  pointer-events: none;
-  transition: color 0.3s ease;
-}
-
-/* RTL support for language text */
-html[dir="rtl"] .lang-text {
-  left: auto;
-  right: 2rem;
-}
-
-/* Dark theme adjustments for language text */
-body.dark-theme .lang-text {
-  color: var(--color-text-muted);
-}
+/* End of global.css */

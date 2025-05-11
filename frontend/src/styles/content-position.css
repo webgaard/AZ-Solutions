@@ -1,0 +1,82 @@
+/* content-position.css
+ * This file contains styles to adjust the position of the main content area
+ */
+
+/* Main content container class */
+.main-content {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* App content container */
+#app-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 120px); /* Ensures content fills available space */
+}
+
+/* Content container positioning */
+.content-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto 0;
+  padding: 1.5rem;
+}
+
+/* Heading styles for content */
+.content-container h1,
+.content-container h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .main-content {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .content-container {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  #app-content {
+    margin-top: 40px;
+  }
+  
+  .content-container {
+    padding: 1.5rem;
+    margin-top: 30px;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #app-content {
+    margin-top: 30px;
+  }
+  
+  .content-container {
+    padding: 1rem;
+    margin-top: 20px;
+  }
+  
+  .main-content {
+    width: 100%;
+    padding: 0.75rem;
+  }
+} 

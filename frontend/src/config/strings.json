@@ -1,0 +1,48 @@
+{
+  "global": {
+    "appTitle": "AZ Solutions",
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "portfolio": "Portfolio",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "controls": {
+    "menuToggle": "Open Main Menu",
+    "profileToggle": "User Profile",
+    "themeToggle": "Toggle Theme",
+    "fullscreenToggle": "Toggle Fullscreen"
+  },
+  "profile": {
+    "title": "Profile"
+  },
+  "submenus": {
+    "about": {
+      "vision": "Vision & Values",
+      "team": "Team",
+      "history": "History",
+      "tools": "Tools & Technologies"
+    },
+    "contact": {
+      "email": "Email",
+      "social": "Social Media",
+      "collaborations": "Collaborations",
+      "join": "Join Us"
+    },
+    "portfolio": {
+      "education": "Education",
+      "experience": "Experience",
+      "skills": "Skills",
+      "selectedProjects": "Projects"
+    },
+    "projects": {
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "interior": "Interior",
+      "installations": "Installations",
+      "details": "Details"
+    }
+  }
+} 

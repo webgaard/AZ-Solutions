@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AZ Solutions</title>
+    <title data-i18n="global.appTitle">AZ Solutions</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../src/styles/variables.css">
+    <link rel="stylesheet" href="../src/styles/typography-overrides.css">
     <link rel="stylesheet" href="../src/styles/global.css">
     <link rel="stylesheet" href="../src/styles/navigation.css">
-    <link rel="stylesheet" href="../src/styles/timeline.css">
-    <link rel="stylesheet" href="../src/styles/content-position.css">
+    <link rel="stylesheet" href="../src/styles/content.css">
     <link rel="stylesheet" href="../src/styles/utility-controls.css">
 
     <!-- Fonts (optional) -->
@@ -32,22 +32,26 @@
         <!-- Utility Controls Container -->
         <div id="utility-controls-container">
             <div class="utility-control menu-control">
-                <button id="menuToggle" title="Open Main Menu" aria-label="Open Main Menu">
+                <button id="menuToggle" data-i18n-attr="title" data-i18n="controls.menuToggle"
+                    aria-label="Open Main Menu">
                     <!-- Custom dash will be added via CSS -->
                 </button>
             </div>
             <div class="utility-control">
-                <button id="profileToggle" title="User Profile" aria-label="User Profile">
+                <button id="profileToggle" data-i18n-attr="title" data-i18n="controls.profileToggle"
+                    aria-label="User Profile">
                     <i class="fas fa-user"></i> <!-- Profile icon instead of globe -->
                 </button>
             </div>
             <div class="utility-control">
-                <button id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">
+                <button id="themeToggle" data-i18n-attr="title" data-i18n="controls.themeToggle"
+                    aria-label="Toggle Theme">
                     <!-- Dots will be added by JavaScript -->
                 </button>
             </div>
             <div class="utility-control">
-                <button id="fullscreen-button" title="Toggle Fullscreen" aria-label="Toggle Fullscreen">
+                <button id="fullscreen-button" data-i18n-attr="title" data-i18n="controls.fullscreenToggle"
+                    aria-label="Toggle Fullscreen">
                     <!-- Custom X will be added via CSS -->
                 </button>
             </div>
@@ -67,12 +71,12 @@
     </div>
 
     <!-- JS (Defer loading) -->
-    <script src="../src/js/main.js" defer></script>
-    <script src="../src/js/router.js" defer></script>
-    <script src="../src/js/fullscreen.js" defer></script>
-    <script src="../src/js/theme.js" defer></script>
-    <script src="../src/js/menu.js" defer></script>
-    <script src="../src/js/profile.js" defer></script>
+    <script type="module" src="../src/js/main.js" defer></script>
+    <script type="module" src="../src/js/router.js" defer></script>
+    <script type="module" src="../src/js/fullscreen.js" defer></script>
+    <script type="module" src="../src/js/theme.js" defer></script>
+    <script type="module" src="../src/js/menu.js" defer></script>
+    <script type="module" src="../src/js/profile.js" defer></script>
 </body>
 
 </html>

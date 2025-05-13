@@ -23,15 +23,56 @@
   --spacing-xl: 6rem;
 
   /* ==== Typography ==== */
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.5rem;
-  --font-size-xl: 2rem;
-  --font-size-xxl: 3rem;
+  /* Font Families */
+  --font-family-base: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-heading: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
 
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-md: 1.125rem;  /* 18px */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --font-size-xl: 1.5rem;    /* 24px */
+  --font-size-2xl: 1.875rem; /* 30px */
+  --font-size-3xl: 2.25rem;  /* 36px */
+  --font-size-4xl: 3rem;     /* 48px */
+
+  /* Font Weights */
   --font-weight-light: 300;
   --font-weight-normal: 400;
-  --font-weight-bold: 600;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /* ==== Menu Typography (Main Menu) ==== */
+  --main-menu-font-family: var(--font-family-base);
+  --main-menu-font-size: var(--font-size-base);
+  --main-menu-font-weight: var(--font-weight-light);
+  --main-menu-line-height: var(--line-height-normal);
+  --main-menu-letter-spacing: var(--letter-spacing-tight);
+  --main-menu-text-transform: none;
+  --main-menu-padding: var(--spacing-sm) var(--spacing-md);
+  
+  /* ==== Menu Typography (Sub Menu) ==== */
+  --sub-menu-font-family: var(--font-family-base);
+  --sub-menu-font-size: var(--font-size-sm);
+  --sub-menu-font-weight: var(--font-weight-normal);
+  --sub-menu-line-height: var(--line-height-normal);
+  --sub-menu-letter-spacing: var(--letter-spacing-tight);
+  --sub-menu-text-transform: none;
+  --sub-menu-padding: var(--spacing-sm);
 
   /* ==== Layout / Grid ==== */
   --grid-size: 40px;
@@ -50,6 +91,6 @@ body.dark-theme {
   --color-text-muted: var(--_color-text-muted-ref); /* #b3b3b3 */
   --color-grid-line: rgba(20, 20, 20, 0.2);
   --color-border: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(0, 0, 0, 0.96);
+  --glass-bg: rgba(101, 101, 101, 0.5);
   --glass-border: rgba(150, 150, 150, 0.3);
 }

@@ -1,23 +1,4 @@
 /* ==== Navigation Styles ==== */
-/* Applies to main menu, submenu, and other navigation elements */
-.glass-header {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: fit-content;
-  max-width: 90vw;
-  padding: 0.75rem 3rem;
-  /* backdrop-filter: var(--glass-blur); */
-  /* -webkit-backdrop-filter: var(--glass-blur); */
-  /* border: 1px solid var(--glass-border); */
-  border-radius: 0px;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-}
 
 /* Position the main menu header at the top */
 #main-menu-container .glass-header {
@@ -25,24 +6,23 @@
   bottom: auto;
 }
 
-/* ==== Submenu Header ==== */
-.submenu-header {
+/* Glass Header - Used in main-menu */
+.glass-header {
   position: fixed;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
   width: fit-content;
   max-width: 90vw;
-  padding: 0.75rem 3rem;
-  /* backdrop-filter: var(--glass-blur); */
-  /* -webkit-backdrop-filter: var(--glass-blur); */
-  /* border: 1px solid var(--glass-border); */
-  border-radius: 0px;
-  z-index: 5; /* Lower z-index than main menu */
+  padding: var(--main-menu-padding);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
+  transition: transform 0.3s ease;
 }
 
 .header-container {
@@ -52,182 +32,97 @@
   width: 100%;
 }
 
-/* ==== Timeline Navigation ==== */
-.timeline-nav ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-}
+/* ==== Sub-Menu Styles ==== */
 
-.timeline-nav a {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-light);
-  color: var(--color-text-muted);
-  position: relative;
-  padding-bottom: 4px;
-}
-
-/* Removing the underline effect */
-.timeline-nav a::after {
-  display: none;
-}
-
-.timeline-nav a:hover {
-  color: var(--color-text);
-}
-
-/* Removing the hover underline effect */
-.timeline-nav a:hover::after {
-  display: none;
-}
-
-/* ==== Header Controls ==== */
-.header-controls {
-  display: flex;
-  gap: 1rem;
-}
-
-.header-controls button {
-  background: none;
-  border: 1px solid var(--glass-border);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.header-controls button:hover {
-  color: var(--color-text);
-  border-color: var(--color-text);
-}
-
-/* ==== Main Menu ==== */
-.main-menu {
+/* Sub-Menu Container */
+#sub-menu-container {
   position: fixed;
-  top: 0;
   left: 0;
-  width: 250px;
-  height: 100vh;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-right: 1px solid var(--glass-border);
-  z-index: 100;
-  transition: all 0.3s ease;
-}
-
-.menu-content {
-  padding: 2rem 1rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.close-menu {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--color-text-muted);
-  cursor: pointer;
-}
-
-.close-menu:hover {
-  color: var(--color-text);
-}
-
-.main-menu ul {
-  list-style: none;
-  padding: 2rem 0;
-}
-
-.main-menu ul li {
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  color: var(--color-text-muted);
-  transition: all 0.2s ease;
-  border-left: 2px solid transparent;
-}
-
-.main-menu ul li:hover {
-  color: var(--color-text);
-  background-color: rgba(255, 255, 255, 0.05);
-  border-left: 2px solid var(--color-text);
-}
-
-/* Active nav link style */
-.timeline-nav a.active {
-  color: var(--color-text);
-  font-weight: var(--font-weight-medium);
-}
-
-/* Removing the active underline effect */
-.timeline-nav a.active::after {
-  display: none;
-}
-
-/* ==== Main Menu Header ==== */
-.main-menu-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem 2rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--glass-border);
-  z-index: 1000;
-}
-
-.main-menu-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  right: 0;
+  top: 2.5rem;
+  z-index: 5; /* Lower z-index than main menu but higher than main-container */
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  pointer-events: none; /* Allow clicks to pass through the container but not the header */
 }
 
+/* Sub-Menu Header */
+.sub-menu-header {
+  position: relative; /* Changed from fixed to relative since parent is fixed */
+  width: fit-content;
+  max-width: 90vw;
+  padding: var(--sub-menu-padding);
+  border-radius: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  transition: transform 0.3s ease;
+  pointer-events: auto; /* Restore click events */
+  
+  /* Glass effect */
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Main Menu Navigation */
 .main-nav ul {
   display: flex;
-  gap: 3rem;
+  gap: 1rem;
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .main-nav a {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
+  font-family: var(--main-menu-font-family);
+  font-size: var(--main-menu-font-size);
+  font-weight: var(--main-menu-font-weight);
+  line-height: var(--main-menu-line-height);
+  letter-spacing: var(--main-menu-letter-spacing);
+  text-transform: var(--main-menu-text-transform);
   color: var(--color-text-muted);
-  text-decoration: none;
-  padding: 0.5rem 0;
   position: relative;
-  transition: color 0.3s ease;
-}
-
-/* Removing the underline effect */
-.main-nav a::after {
-  display: none;
+  padding: var(--main-menu-padding);
+  padding-top: 0;
+  padding-bottom: 4px;
 }
 
 .main-nav a:hover {
   color: var(--color-text);
 }
 
-/* Removing the hover underline effect */
-.main-nav a:hover::after {
-  display: none;
+/* Active main nav link style */
+.main-nav a.active {
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
 }
 
-.main-nav a.active {
+/* Sub Menu Navigation */
+.section-nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.section-nav a {
+  font-family: var(--sub-menu-font-family);
+  font-size: var(--sub-menu-font-size);
+  font-weight: var(--sub-menu-font-weight);
+  line-height: var(--sub-menu-line-height);
+  letter-spacing: var(--sub-menu-letter-spacing);
+  text-transform: var(--sub-menu-text-transform);
+  color: var(--color-text-muted);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.section-nav a:hover {
   color: var(--color-text);
 }
 
-/* Removing the active underline effect */
-.main-nav a.active::after {
-  display: none;
-}
+/* Active sub nav link style */
+.section-nav a.active {
+  color: var(--color-text);
+  font-weight: var(--font-weight-normal);
+} 

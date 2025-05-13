@@ -11,43 +11,43 @@ document.addEventListener('DOMContentLoaded', function() {
       // Initialize main navigation
       initializeMainNav();
       
-      // Load default submenu (portfolio)
-      window.loadSubmenu('portfolio');
+      // Load default sub-menu (portfolio)
+      window.loadSubMenu('portfolio');
     })
     .catch(error => console.error('Error loading main menu:', error));
 });
 
-let combinedSubmenuContent = null; // Cache for submenu HTML
+let combinedSubMenuContent = null; // Cache for sub-menu HTML
 
-// Function to fetch and cache the submenu content
-async function fetchCombinedSubmenu() {
-  if (combinedSubmenuContent === null) { // Check if null to allow fetching even if previous attempt resulted in empty string
+// Function to fetch and cache the sub-menu content
+async function fetchCombinedSubMenu() {
+  if (combinedSubMenuContent === null) { // Check if null to allow fetching even if previous attempt resulted in empty string
     try {
-      const response = await fetch('../src/components/submenu.html');
+      const response = await fetch('../src/components/sub-menu.html');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      combinedSubmenuContent = await response.text();
-      if (!combinedSubmenuContent.trim()) {
-          console.warn('Fetched submenu.html is empty.');
-          // combinedSubmenuContent remains empty string, error will be handled by caller
+      combinedSubMenuContent = await response.text();
+      if (!combinedSubMenuContent.trim()) {
+          console.warn('Fetched sub-menu.html is empty.');
+          // combinedSubMenuContent remains empty string, error will be handled by caller
       }
     } catch (error) {
-      console.error('Error loading submenu:', error);
-      combinedSubmenuContent = ''; // Set to empty string on error to prevent retries only if error
+      console.error('Error loading sub-menu:', error);
+      combinedSubMenuContent = ''; // Set to empty string on error to prevent retries only if error
     }
   }
-  return combinedSubmenuContent;
+  return combinedSubMenuContent;
 }
 
 // Function to initialize main navigation
 function initializeMainNav() {
-  const mainNavLinks = document.querySelectorAll('#main-menu-container .timeline-nav a');
+  const mainNavLinks = document.querySelectorAll('#main-menu-container .main-nav a');
   mainNavLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const section = this.getAttribute('href').substring(1);
-      window.loadSubmenu(section);
+      window.loadSubMenu(section);
       updateMainNav(section);
       
       // Update URL hash
@@ -58,7 +58,7 @@ function initializeMainNav() {
 
 // Function to update main navigation active state
 function updateMainNav(section) {
-  const mainNavLinks = document.querySelectorAll('#main-menu-container .timeline-nav a');
+  const mainNavLinks = document.querySelectorAll('#main-menu-container .main-nav a');
   mainNavLinks.forEach(link => {
     if (link.getAttribute('href') === `#${section}`) {
       link.classList.add('active');
@@ -68,44 +68,49 @@ function updateMainNav(section) {
   });
 }
 
-// Function to load submenu based on selected section
+// Function to load sub-menu based on selected section
 // Make it available globally for router.js
-window.loadSubmenu = async function(section) {
-  const fullSubmenuHTML = await fetchCombinedSubmenu();
+window.loadSubMenu = async function(section) {
+  const fullSubMenuHTML = await fetchCombinedSubMenu();
 
-  const header = document.getElementById('main-header');
-  if (!header) {
-    console.error('Header element with ID "main-header" not found.');
-    return;
+  // Remove existing sub-menu if it exists
+  const existingSubMenu = document.getElementById('sub-menu-container');
+  if (existingSubMenu) {
+    existingSubMenu.remove();
   }
 
-  if (!fullSubmenuHTML || !fullSubmenuHTML.trim()) {
-    console.error(`Submenu content could not be loaded or is empty. Cannot display submenu for ${section}.`);
-    header.innerHTML = '<p class="error-message">Submenu could not be loaded. Please check console for details.</p>';
+  if (!fullSubMenuHTML || !fullSubMenuHTML.trim()) {
+    console.error(`Sub-menu content could not be loaded or is empty. Cannot display sub-menu for ${section}.`);
     return;
   }
 
   const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = fullSubmenuHTML;
-  const submenuContentDiv = tempDiv.querySelector(`#submenu-${section}-content`);
+  tempDiv.innerHTML = fullSubMenuHTML;
+  const subMenuContentDiv = tempDiv.querySelector(`#sub-menu-${section}-content`);
 
-  if (submenuContentDiv && submenuContentDiv.innerHTML.trim()) {
-    header.innerHTML = submenuContentDiv.innerHTML;
-    initializeSubmenuNav(section);
+  if (subMenuContentDiv && subMenuContentDiv.innerHTML.trim()) {
+    // Create a container for the sub-menu that will be a direct child of body
+    const subMenuContainer = document.createElement('div');
+    subMenuContainer.id = 'sub-menu-container';
+    subMenuContainer.innerHTML = subMenuContentDiv.innerHTML;
+    
+    // Add to body directly instead of the main-header
+    document.body.appendChild(subMenuContainer);
+    
+    initializeSubMenuNav(section);
   } else {
-    header.innerHTML = `<p class="error-message">Submenu for "<strong>${section}</strong>" not found. Please check configuration.</p>`;
-    console.error(`Submenu content for #submenu-${section}-content not found or is empty in submenu.html`);
+    console.error(`Sub-menu content for #sub-menu-${section}-content not found or is empty in sub-menu.html`);
   }
 };
 
-// Function to initialize submenu navigation
-function initializeSubmenuNav(parentSection) {
-  const submenuLinks = document.querySelectorAll('#main-header .timeline-nav a');
-  submenuLinks.forEach(link => {
+// Function to initialize sub-menu navigation
+function initializeSubMenuNav(parentSection) {
+  const subMenuLinks = document.querySelectorAll('#sub-menu-container .section-nav a');
+  subMenuLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const subsection = this.getAttribute('href').substring(1);
-      updateSubmenuNav(subsection);
+      updateSubMenuNav(subsection);
       
       // Load content for this subsection
       if (window.loadContent) {
@@ -118,10 +123,10 @@ function initializeSubmenuNav(parentSection) {
   });
 }
 
-// Function to update submenu navigation active state
-function updateSubmenuNav(subsection) {
-  const submenuLinks = document.querySelectorAll('#main-header .timeline-nav a');
-  submenuLinks.forEach(link => {
+// Function to update sub-menu navigation active state
+function updateSubMenuNav(subsection) {
+  const subMenuLinks = document.querySelectorAll('#sub-menu-container .section-nav a');
+  subMenuLinks.forEach(link => {
     if (link.getAttribute('href') === `#${subsection}`) {
       link.classList.add('active');
     } else {

@@ -1,30 +1,75 @@
-/* ==== Navigation Styles ==== */
+/* ========================================
+   Navigation System Styles
+   ======================================== */
 
-/* Position the main menu header at the top */
-#main-menu-container .glass-header {
-  top: 0;
-  bottom: auto;
+/* 
+ * Table of Contents:
+ * 1. Common Navigation Properties
+ * 2. Glass Header (Main Menu)
+ * 3. Sub-Menu Container & Header
+ * 4. Navigation Links (Main & Sub)
+ * 5. Active States & Hover Effects
+ * 6. Responsive Design
+ */
+
+/* ========================================
+   1. Common Navigation Properties
+   ======================================== */
+:root {
+  /* Navigation transitions */
+  --nav-transition-default: all 0.3s ease;
+  --nav-transition-hover: all 0.2s ease-in-out;
+  
+  /* Navigation z-index layers */
+  --z-index-main-menu: 10;
+  --z-index-sub-menu: 5;
+  
+  /* Navigation gaps */
+  --nav-gap-default: 2rem;
 }
 
-/* Glass Header - Used in main-menu */
+/* ========================================
+   2. Glass Header (Main Menu)
+   ======================================== */
+
+/* Main menu container positioning */
+#main-menu-container .glass-header {
+  /* top: var(--spacing-xs); */
+  top: 0;
+  bottom: auto;
+  /* border: 1px solid var(--glass-border-light); */
+  /* border-radius: var(--border-radius-xl); */
+  border-bottom-right-radius: var(--border-radius-xl);
+  border-bottom-left-radius: var(--border-radius-xl);
+}
+
+/* Glass header base styles */
 .glass-header {
   position: fixed;
   left: 50%;
-  bottom: 0;
   transform: translateX(-50%);
   width: fit-content;
   max-width: 90vw;
-  padding: var(--main-menu-padding);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  z-index: 10;
+  padding: var(--main-menu-padding) var(--main-menu-padding) 0;
+  /* background-color: var(--glass-bg); */
+  
+  /* Glass morphism effect */
+  backdrop-filter: var(--glass-blur-sm, blur(10px));
+  -webkit-backdrop-filter: var(--glass-blur-sm, blur(10px));
+  
+  /* Layout */
+  z-index: var(--z-index-main-menu);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  transition: transform 0.3s ease;
+  gap: var(--nav-gap-default);
+  
+  /* Performance optimization */
+  will-change: transform;
+  transition: var(--nav-transition-default);
 }
 
+/* Header container for internal layout */
 .header-container {
   display: flex;
   align-items: center;
@@ -32,97 +77,180 @@
   width: 100%;
 }
 
-/* ==== Sub-Menu Styles ==== */
+/* ========================================
+   3. Sub-Menu Container & Header
+   ======================================== */
 
-/* Sub-Menu Container */
+/* Sub-menu container - positioned below main menu */
 #sub-menu-container {
   position: fixed;
-  left: 0;
-  right: 0;
-  top: 2.5rem;
-  z-index: 5; /* Lower z-index than main menu but higher than main-container */
+  inset: 3.5rem 0 auto 0;
+  z-index: var(--z-index-sub-menu);
+  
+  /* Flexbox centering */
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  pointer-events: none; /* Allow clicks to pass through the container but not the header */
+  
+  /* Allow clicks to pass through to content below */
+  pointer-events: none;
 }
 
-/* Sub-Menu Header */
+/* Sub-menu header */
 .sub-menu-header {
-  position: relative; /* Changed from fixed to relative since parent is fixed */
+  position: relative;
   width: fit-content;
   max-width: 90vw;
   padding: var(--sub-menu-padding);
-  border-radius: 0px;
+  /* background-color: var(--glass-bg); */
+  /* border: 1px solid var(--glass-border-light); */
+  /* border-radius: var(--border-radius-md); */
+  /* border-bottom-right-radius: var(--border-radius-md);
+  border-bottom-left-radius: var(--border-radius-md); */
+  
+  /* Layout */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  transition: transform 0.3s ease;
-  pointer-events: auto; /* Restore click events */
+  gap: var(--nav-gap-default);
   
-  /* Glass effect */
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  /* Restore click events for the header itself */
+  pointer-events: auto;
+  
+  /* Glass morphism effect */
+  backdrop-filter: var(--glass-blur, blur(20px));
+  -webkit-backdrop-filter: var(--glass-blur, blur(20px));
+  
+  /* Performance optimization */
+  will-change: transform;
+  transition: var(--nav-transition-default);
 }
 
-/* Main Menu Navigation */
-.main-nav ul {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-}
+/* ========================================
+   4. Navigation Links (Main & Sub)
+   ======================================== */
 
-.main-nav a {
-  font-family: var(--main-menu-font-family);
-  font-size: var(--main-menu-font-size);
-  font-weight: var(--main-menu-font-weight);
-  line-height: var(--main-menu-line-height);
-  letter-spacing: var(--main-menu-letter-spacing);
-  text-transform: var(--main-menu-text-transform);
-  color: var(--color-text-muted);
-  position: relative;
-  padding: var(--main-menu-padding);
-  padding-top: 0;
-  padding-bottom: 4px;
-}
-
-.main-nav a:hover {
-  color: var(--color-text);
-}
-
-/* Active main nav link style */
-.main-nav a.active {
-  color: var(--color-text);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* Sub Menu Navigation */
+/* Common navigation list styles */
+.main-nav ul,
 .section-nav ul {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--nav-gap-default);
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+/* Common link styles */
+.main-nav a,
 .section-nav a {
-  font-family: var(--sub-menu-font-family);
-  font-size: var(--sub-menu-font-size);
-  font-weight: var(--sub-menu-font-weight);
-  line-height: var(--sub-menu-line-height);
-  letter-spacing: var(--sub-menu-letter-spacing);
-  text-transform: var(--sub-menu-text-transform);
-  color: var(--color-text-muted);
   position: relative;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: var(--nav-transition-hover);
+}
+
+/* Main navigation specific styles */
+.main-nav a {
+  font-family: var(--main-menu-font-family, var(--font-family-base));
+  font-size: var(--main-menu-font-size, 1rem);
+  font-weight: var(--main-menu-font-weight, 300);
+  line-height: var(--main-menu-line-height, 1.5);
+  letter-spacing: var(--main-menu-letter-spacing, -0.025em);
+  text-transform: var(--main-menu-text-transform, none);
+  padding: 0 var(--main-menu-padding) 4px var(--main-menu-padding);
+}
+
+/* Sub navigation specific styles */
+.section-nav a {
+  font-family: var(--sub-menu-font-family, var(--font-family-base));
+  font-size: var(--sub-menu-font-size, 0.875rem);
+  font-weight: var(--sub-menu-font-weight, 400);
+  line-height: var(--sub-menu-line-height, 1.5);
+  letter-spacing: var(--sub-menu-letter-spacing, -0.025em);
+  text-transform: var(--sub-menu-text-transform, none);
   padding-bottom: 4px;
 }
 
+/* ========================================
+   5. Active States & Hover Effects
+   ======================================== */
+
+/* Hover state for all navigation links */
+.main-nav a:hover,
 .section-nav a:hover {
   color: var(--color-text);
 }
 
-/* Active sub nav link style */
+/* Active state for all navigation links */
+.main-nav a.active,
 .section-nav a.active {
   color: var(--color-text);
-  font-weight: var(--font-weight-normal);
-} 
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+/* Optional: Active indicator underline
+   Uncomment to enable underline for active sub-menu items */
+/*
+.section-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text);
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+*/
+
+/* ========================================
+   6. Responsive Design
+   ======================================== */
+
+/* Tablet and below adjustments */
+@media (max-width: 768px) {
+  :root {
+    --nav-gap-default: 1rem;
+  }
+  
+  .glass-header,
+  .sub-menu-header {
+    max-width: 95vw;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .main-nav a {
+    font-size: calc(var(--main-menu-font-size) * 0.9);
+    padding: 0 var(--spacing-xs) 4px var(--spacing-xs);
+  }
+  
+  .section-nav a {
+    font-size: calc(var(--sub-menu-font-size) * 0.9);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .main-nav ul,
+  .section-nav ul {
+    gap: var(--spacing-xs);
+  }
+  
+  .glass-header,
+  .sub-menu-header {
+    gap: var(--spacing-sm);
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .glass-header,
+  .sub-menu-header,
+  .main-nav a,
+  .section-nav a {
+    transition: none;
+  }
+}

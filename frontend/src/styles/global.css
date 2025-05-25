@@ -1,3 +1,7 @@
+/* Import component stylesheets */
+@import 'timeline.css';
+@import 'home.css';
+
 /* ==== Global Reset (basic) ==== */
 * {
   margin: 0;
@@ -23,6 +27,27 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* RTL support */
+html[dir="rtl"] {
+  font-family: var(--font-family-base), Tahoma, Arial, sans-serif;
+}
+
+/* RTL specific font adjustments */
+html[dir="rtl"] h1, 
+html[dir="rtl"] h2, 
+html[dir="rtl"] h3, 
+html[dir="rtl"] h4, 
+html[dir="rtl"] h5, 
+html[dir="rtl"] h6, 
+html[dir="rtl"] p, 
+html[dir="rtl"] span, 
+html[dir="rtl"] a, 
+html[dir="rtl"] button, 
+html[dir="rtl"] input, 
+html[dir="rtl"] textarea, 
+html[dir="rtl"] select {
+  font-family: var(--font-family-base), Tahoma, Arial, sans-serif;
+}
 
 /* ==== Main Container Styling ==== */
 #main-container {
@@ -31,11 +56,12 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   border: 1px solid var(--glass-border);
-  border-radius: 26px; /* Rounded corners */
+  border-radius: 25px; /* Rounded corners */
   position: relative; /* For ::before pseudo-element */
   z-index: 1;
   overflow: auto; /* Add scroll if content overflows */
   padding: 1rem; /* Inner padding for content, adjust as needed */
+  padding-bottom: 70px; /* Extra padding at bottom for timeline */
   transition: transform 0.3s ease, width 0.3s ease; /* Add transition for smooth movement */
 }
 
@@ -48,11 +74,19 @@ body {
   height: calc(100vh - .6rem);
   background-color: var(--color-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 26px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
   z-index: 2;
   padding: 1rem;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
+}
+
+/* RTL support for profile panel */
+html[dir="rtl"] #profile-panel {
+  left: auto;
+  right: 0.3rem;
+  transform: translateX(100%);
 }
 
 #profile-panel.active {
@@ -63,6 +97,11 @@ body {
 body.profile-active #main-container {
   width: calc(100vw - 15rem - .6rem);
   transform: translateX(203px);
+}
+
+/* RTL support for main container when profile is active */
+html[dir="rtl"] body.profile-active #main-container {
+  transform: translateX(-203px);
 }
 
 /* ==== Architectural Grid Background for Main Container ==== */
@@ -161,8 +200,6 @@ small {
   display: none;
 }
 
-/* Skip from here - removing utility controls container section */
-
 /* Styles for theme and feature specific elements */
 body:not(.dark-theme) .light-dot {
   opacity: 0; /* Hide white dot in light theme */
@@ -182,6 +219,63 @@ body.dark-theme .light-dot {
 body.dark-theme .dark-dot {
   opacity: 0; /* Hide black dot in dark theme */
   transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Logo styles for navigation menu */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin-top: -5px;
+}
+
+.logo-container a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+}
+
+.logo-container a:hover {
+  opacity: 1; /* Override the default link hover opacity */
+}
+
+.nav-logo {
+  height: 100%;
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.15);
+}
+
+/* Theme-specific logo visibility */
+body:not(.dark-theme) .dark-logo {
+  display: none;
+}
+
+body:not(.dark-theme) .light-logo {
+  display: block;
+}
+
+body.dark-theme .light-logo {
+  display: none;
+}
+
+body.dark-theme .dark-logo {
+  display: block;
+}
+
+/* Language-specific text alignment */
+html[dir="rtl"] .text-align-dynamic {
+  text-align: right;
+}
+
+html[dir="ltr"] .text-align-dynamic {
+  text-align: left;
 }
 
 /* End of global.css */

@@ -1,0 +1,50 @@
+{
+  "global": {
+    "appTitle": "راه‌حل‌های AZ",
+    "loading": "در حال بارگذاری..."
+  },
+  "navigation": {
+    "discover": "کشف",
+    "portfolio": "نمونه کارها",
+    "mag": "مجله",
+    "aboutus": "درباره ما",
+    "contact": "تماس با ما"
+  },
+  "controls": {
+    "dashboard": "داشبورد",
+    "themeToggle": "تغییر تم",
+    "fullscreenToggle": "حالت تمام صفحه",
+    "languageToggle": "تغییر زبان"
+  },
+  "profile": {
+    "title": "پروفایل"
+  },
+  "submenus": {
+    "discover": {
+      "projects": "پروژه‌ها",
+      "community": "جامعه",
+      "interviews": "مصاحبه‌ها",
+      "events": "رویدادها",
+      "resources": "منابع"
+    },
+    "portfolio": {
+      "education": "تحصیلات",
+      "experience": "تجربه‌ها",
+      "skills": "مهارت‌ها",
+      "projects": "پروژه‌ها"
+    },
+    "mag": {
+      "articles": "مقالات",
+      "az10": "AZ10 (بررسی | امتیاز)"
+    },
+    "aboutus": {
+      "vision": "چشم‌انداز و ارزش‌ها",
+      "team": "تیم",
+      "contact": "تماس با ما"
+    }
+  },
+  "language": {
+    "en": "English",
+    "fa": "فارسی"
+  }
+} 

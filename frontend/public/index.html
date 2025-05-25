@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../src/styles/navigation.css">
     <link rel="stylesheet" href="../src/styles/content.css">
     <link rel="stylesheet" href="../src/styles/utility-controls.css">
+    <link rel="stylesheet" href="../src/styles/timeline.css">
 
     <!-- Fonts (optional) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,15 +32,8 @@
     <div id="main-container">
         <!-- Utility Controls Container -->
         <div id="utility-controls-container">
-            <div class="utility-control menu-control">
-                <button id="menuToggle" data-i18n-attr="title" data-i18n="controls.menuToggle"
-                    aria-label="Open Main Menu">
-                    <!-- Custom dash will be added via CSS -->
-                </button>
-            </div>
             <div class="utility-control">
-                <button id="profileToggle" data-i18n-attr="title" data-i18n="controls.profileToggle"
-                    aria-label="User Profile">
+                <button id="dashboard" data-i18n-attr="title" data-i18n="controls.dashboard" aria-label="Dashboard">
                     <i class="fas fa-user"></i> <!-- Profile icon instead of globe -->
                 </button>
             </div>
@@ -53,6 +47,12 @@
                 <button id="fullscreen-button" data-i18n-attr="title" data-i18n="controls.fullscreenToggle"
                     aria-label="Toggle Fullscreen">
                     <!-- Custom X will be added via CSS -->
+                </button>
+            </div>
+            <div class="utility-control language-control">
+                <button id="languageToggle" data-i18n-attr="title" data-i18n="controls.languageToggle"
+                    aria-label="Change Language">
+                    <!-- Language toggle button -->
                 </button>
             </div>
         </div>
@@ -73,10 +73,13 @@
     <!-- JS (Defer loading) -->
     <script type="module" src="../src/js/main.js" defer></script>
     <script type="module" src="../src/js/router.js" defer></script>
+    <script type="module" src="../src/js/home.js" defer></script>
     <script type="module" src="../src/js/fullscreen.js" defer></script>
     <script type="module" src="../src/js/theme.js" defer></script>
     <script type="module" src="../src/js/menu.js" defer></script>
-    <script type="module" src="../src/js/profile.js" defer></script>
+    <script type="module" src="../src/js/dashboard.js" defer></script>
+    <script type="module" src="../src/js/language.js" defer></script>
+    <script type="module" src="../src/js/portfolio-timeline.js" defer></script>
 </body>
 
 </html>

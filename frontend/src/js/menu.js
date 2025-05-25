@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Initialize main navigation
       initializeMainNav();
       
-      // Load default sub-menu (portfolio)
-      window.loadSubMenu('portfolio');
+      // No need to load sub-menu for home page as default
     })
     .catch(error => console.error('Error loading main menu:', error));
 });
@@ -47,11 +46,28 @@ function initializeMainNav() {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const section = this.getAttribute('href').substring(1);
-      window.loadSubMenu(section);
-      updateMainNav(section);
       
-      // Update URL hash
-      window.location.hash = `#${section}`;
+      // Check if this is the logo link (points to home)
+      if (section === 'home') {
+        // Remove any existing sub-menu
+        const existingSubMenu = document.getElementById('sub-menu-container');
+        if (existingSubMenu) {
+          existingSubMenu.remove();
+        }
+        
+        // Load home page content directly
+        if (window.loadContent) {
+          window.loadContent('home', '');
+        }
+        
+        // Don't update main nav active state for logo clicks
+        window.location.hash = `#${section}`;
+      } else {
+        // Load sub-menu for other sections
+        window.loadSubMenu(section);
+        updateMainNav(section);
+        window.location.hash = `#${section}`;
+      }
     });
   });
 }

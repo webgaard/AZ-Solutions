@@ -28,7 +28,7 @@ function initializeTheme(themeToggle) {
     // Create theme toggle text element
     const themeText = document.createElement('span');
     themeText.className = 'theme-toggle-text';
-    themeText.textContent = 'Dark/Light';
+    themeText.textContent = 'Dark|Light';
     themeToggle.parentElement.appendChild(themeText);
 
     // Ensure the theme toggle has the dot elements

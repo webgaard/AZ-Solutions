@@ -4,45 +4,47 @@
     "loading": "Loading..."
   },
   "navigation": {
+    "discover": "Discover",
     "portfolio": "Portfolio",
-    "projects": "Projects",
-    "about": "About",
+    "mag": "Mag",
+    "aboutus": "About Us",
     "contact": "Contact"
   },
   "controls": {
-    "menuToggle": "Open Main Menu",
-    "profileToggle": "User Profile",
+    "dashboard": "Dashboard",
     "themeToggle": "Toggle Theme",
-    "fullscreenToggle": "Toggle Fullscreen"
+    "fullscreenToggle": "Toggle Fullscreen",
+    "languageToggle": "Change Language"
   },
   "profile": {
     "title": "Profile"
   },
   "submenus": {
-    "about": {
-      "vision": "Vision & Values",
-      "team": "Team",
-      "history": "History",
-      "tools": "Tools & Technologies"
-    },
-    "contact": {
-      "email": "Email",
-      "social": "Social Media",
-      "collaborations": "Collaborations",
-      "join": "Join Us"
+    "discover": {
+      "projects": "Projects",
+      "community": "Community",
+      "interviews": "Interviews",
+      "events": "Events",
+      "resources": "Resources"
     },
     "portfolio": {
       "education": "Education",
       "experience": "Experience",
       "skills": "Skills",
-      "selectedProjects": "Projects"
+      "projects": "Projects"
     },
-    "projects": {
-      "residential": "Residential",
-      "commercial": "Commercial",
-      "interior": "Interior",
-      "installations": "Installations",
-      "details": "Details"
+    "mag": {
+      "articles": "Articles",
+      "az10": "AZ10 (Review | Rate)"
+    },
+    "aboutus": {
+      "vision": "Vision & Values",
+      "team": "Team",
+      "contact": "Contact"
     }
+  },
+  "language": {
+    "en": "English",
+    "fa": "فارسی"
   }
 } 

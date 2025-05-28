@@ -1,6 +1,7 @@
 /* Import component stylesheets */
 @import 'timeline.css';
 @import 'home.css';
+@import 'team.css';
 
 /* ==== Global Reset (basic) ==== */
 * {
@@ -9,10 +10,37 @@
   box-sizing: border-box;
 }
 
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.5);
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--glass-border) transparent;
+}
+
 /* ==== Body Styling ==== */
 body {
   font-family: var(--font-family-base);
-  background-color: #1c1c1c; /* Black background */
+  background-color: #000000; /* Black background */
   color: var(--color-text);
   line-height: var(--line-height-normal);
   min-height: 100vh;
@@ -59,14 +87,32 @@ html[dir="rtl"] select {
   border-radius: 25px; /* Rounded corners */
   position: relative; /* For ::before pseudo-element */
   z-index: 1;
-  overflow: auto; /* Add scroll if content overflows */
-  padding: 1rem; /* Inner padding for content, adjust as needed */
-  padding-bottom: 70px; /* Extra padding at bottom for timeline */
+  overflow: hidden; /* Prevent container scrolling */
+  padding: 0; /* Remove padding, will be added to scrollable content */
   transition: transform 0.3s ease, width 0.3s ease; /* Add transition for smooth movement */
 }
 
-/* ==== Profile Panel Styling ==== */
-#profile-panel {
+/* Add a scrollable wrapper for the main content */
+#app-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem; /* Apply padding to scrollable area */
+  padding-bottom: 70px; /* Extra padding at bottom for timeline */
+  overflow: auto; /* Allow scrolling only in the content area */
+  z-index: 0; /* Below the utility controls */
+}
+
+/* Adjust the header to stay within the scrollable area */
+#main-header {
+  position: relative;
+  z-index: 1; /* Above grid but below utility controls */
+}
+
+/* ==== Dashboard Panel Styling ==== */
+#dashboard-panel {
   position: fixed;
   top: 0.3rem;
   left: 0.3rem;
@@ -83,31 +129,31 @@ html[dir="rtl"] select {
 }
 
 /* RTL support for profile panel */
-html[dir="rtl"] #profile-panel {
+html[dir="rtl"] #dashboard-panel {
   left: auto;
   right: 0.3rem;
   transform: translateX(100%);
 }
 
-#profile-panel.active {
+#dashboard-panel.active {
   transform: translateX(0);
 }
 
 /* When profile is active, move main container */
-body.profile-active #main-container {
+body.dashboard-active #main-container {
   width: calc(100vw - 15rem - .6rem);
   transform: translateX(203px);
 }
 
 /* RTL support for main container when profile is active */
-html[dir="rtl"] body.profile-active #main-container {
+html[dir="rtl"] body.dashboard-active #main-container {
   transform: translateX(-203px);
 }
 
 /* ==== Architectural Grid Background for Main Container ==== */
 #main-container::before {
   content: "";
-  position: absolute; /* Changed from fixed to absolute for container */
+  position: absolute; /* Keep absolute positioning for the grid */
   top: 0;
   left: 0;
   width: 100%; /* Cover the container */
@@ -118,7 +164,8 @@ html[dir="rtl"] body.profile-active #main-container {
     linear-gradient(var(--color-grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size); /* Use variable for grid size too */
-  z-index: -1; /* Behind the container's content but above its background */
+  background-attachment: fixed; /* Keep grid static on scroll */
+  z-index: 0; /* Behind the container's content but above its background */
   /* Add transition for grid color change */
   transition: background-image 0.3s ease;
   border-radius: inherit; /* Inherit border-radius from parent */
@@ -203,73 +250,21 @@ small {
 /* Styles for theme and feature specific elements */
 body:not(.dark-theme) .light-dot {
   opacity: 0; /* Hide white dot in light theme */
-  transform: translate(-50%, -50%) scale(0.5);
 }
 
 body:not(.dark-theme) .dark-dot {
-  opacity: 1; /* Show black dot in light theme */
-  transform: translate(-50%, -50%) scale(1);
+  opacity: 1; /* Show dark dot in light theme */
 }
 
 body.dark-theme .light-dot {
   opacity: 1; /* Show white dot in dark theme */
-  transform: translate(-50%, -50%) scale(1);
 }
 
 body.dark-theme .dark-dot {
-  opacity: 0; /* Hide black dot in dark theme */
-  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0; /* Hide dark dot in dark theme */
 }
 
-/* Logo styles for navigation menu */
-.logo-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-  margin-top: -5px;
-}
-
-.logo-container a {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  text-decoration: none;
-}
-
-.logo-container a:hover {
-  opacity: 1; /* Override the default link hover opacity */
-}
-
-.nav-logo {
-  height: 100%;
-  width: auto;
-  cursor: pointer;
-  transition: transform 0.5s ease;
-}
-
-.nav-logo:hover {
-  transform: scale(1.15);
-}
-
-/* Theme-specific logo visibility */
-body:not(.dark-theme) .dark-logo {
-  display: none;
-}
-
-body:not(.dark-theme) .light-logo {
-  display: block;
-}
-
-body.dark-theme .light-logo {
-  display: none;
-}
-
-body.dark-theme .dark-logo {
-  display: block;
-}
-
-/* Language-specific text alignment */
+/* RTL text alignment utilities */
 html[dir="rtl"] .text-align-dynamic {
   text-align: right;
 }

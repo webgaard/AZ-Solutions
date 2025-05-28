@@ -1,0 +1,37 @@
+# ساختار Menu & Sub-Menu
+
+## Menu
+
+| آیتم منوی اصلی  | کلید i18n             | زیرمنوها                                                                                         | توضیح (انگلیسی)            |
+| --------------- | --------------------- | ------------------------------------------------------------------------------------------------ | -------------------------- |
+| Discover        | navigation.discover   | discover.projects, discover.community, discover.contents, discover.events, discover.competitions | Ecosystem exploration      |
+| AI Insights Hub | navigation.aiinsights | aiinsights.posts, aiinsights.videos, aiinsights.az10, aiinsights.insights                        | Brand-generated content    |
+| Logo (Home)     | navigation.home       | —                                                                                                | Return to landing          |
+| Join Us         | navigation.joinus     | join.signin, join.dashboard                                                                      | User signup & access       |
+| About Us        | navigation.aboutus    | aboutus.vision, aboutus.team, aboutus.contact                                                    | Brand info & team overview |
+
+## Sub-Menu: Discover
+
+* **Projects** (`discover.projects`): لیست کامل پروژه‌ها و نمونه‌های شاخص
+* **Community** (`discover.community`): پروفایل‌های عمومی کاربران
+* **Contents** (`discover.contents`): مقالات و ویدیوهای منتخب خارجی
+* **Events** (`discover.events`): تقویم رویدادها و چارچوب‌های زمانی
+* **Competitions** (`discover.competitions`): مسابقات جاری و نتایج
+
+## Sub-Menu: AI Insights Hub
+
+* **Posts** (`aiinsights.posts`): مقالات و یادداشت‌های اختصاصی
+* **Videos** (`aiinsights.videos`): ویدیوها و وبینارها
+* **AZ10** (`aiinsights.az10`): نقد و بررسی پلتفرم AZ10
+* **Insights** (`aiinsights.insights`): گزارش‌ها، تحلیل‌ها و infographics
+
+## Sub-Menu: Join Us
+
+* **Sign-Up/In** (`join.signin`): ثبت‌نام یا ورود به حساب کاربری
+* **Dashboard** (`join.dashboard`): دسترسی به داشبورد و مدیریت پروفایل
+
+## Sub-Menu: About Us
+
+* **Vision** (`aboutus.vision`): ماموریت، چشم‌انداز و ارزش‌های ما
+* **Team** (`aboutus.team`): معرفی اعضای تیم و نقش‌ها
+* **Contact** (`aboutus.contact`): راه‌های ارتباط و فرم تماس

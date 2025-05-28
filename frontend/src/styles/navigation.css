@@ -10,6 +10,8 @@
  * 4. Navigation Links (Main & Sub)
  * 5. Active States & Hover Effects
  * 6. Responsive Design
+ * 7. Logo Styles
+ * 8. Glass Footer Styles
  */
 
 /* ========================================
@@ -34,13 +36,13 @@
 
 /* Main menu container positioning */
 #main-menu-container .glass-header {
-  /* top: var(--spacing-xs); */
   top: 0;
   bottom: auto;
-  /* border: 1px solid var(--glass-border-light); */
-  /* border-radius: var(--border-radius-xl); */
+  border: 1px solid var(--glass-border-light);
+  border-top: none;
   border-bottom-right-radius: var(--border-radius-xl);
   border-bottom-left-radius: var(--border-radius-xl);
+  /* border-radius: var(--border-radius-xl); */
 }
 
 /* Glass header base styles */
@@ -50,12 +52,12 @@
   transform: translateX(-50%);
   width: fit-content;
   max-width: 90vw;
-  padding: var(--main-menu-padding) var(--main-menu-padding) 0;
-  /* background-color: var(--glass-bg); */
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs);
+  background: var(--glass-bg);
   
   /* Glass morphism effect */
-  backdrop-filter: var(--glass-blur-sm, blur(10px));
-  -webkit-backdrop-filter: var(--glass-blur-sm, blur(10px));
+  backdrop-filter: var(--glass-blur-sm);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
   
   /* Layout */
   z-index: var(--z-index-main-menu);
@@ -84,7 +86,7 @@
 /* Sub-menu container - positioned below main menu */
 #sub-menu-container {
   position: fixed;
-  inset: 3.5rem 0 auto 0;
+  inset: 5rem 0 auto 0;
   z-index: var(--z-index-sub-menu);
   
   /* Flexbox centering */
@@ -95,6 +97,64 @@
   
   /* Allow clicks to pass through to content below */
   pointer-events: none;
+  
+  /* Hide by default */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+/* Hide all sub-menu navigation sections by default */
+#sub-menu-container .section-nav {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Show sub-menu container when hovering over main menu items (excluding logo) or when activated by click */
+/* Now handled by JavaScript for better control */
+#sub-menu-container:hover,
+#sub-menu-container.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Ensure sub-menu stays visible when shown via click */
+#sub-menu-container.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+/* Show active sub-menu section */
+#sub-menu-container .section-nav.active {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure sub-menu header is properly sized when content changes */
+.sub-menu-header .header-container {
+  width: auto;
+  min-width: fit-content;
+}
+
+/* Smooth transitions for sub-menu content switching */
+#sub-menu-container .section-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+#sub-menu-container .section-nav.active {
+  position: relative;
 }
 
 /* Sub-menu header */
@@ -102,12 +162,10 @@
   position: relative;
   width: fit-content;
   max-width: 90vw;
-  padding: var(--sub-menu-padding);
-  /* background-color: var(--glass-bg); */
-  /* border: 1px solid var(--glass-border-light); */
-  /* border-radius: var(--border-radius-md); */
-  /* border-bottom-right-radius: var(--border-radius-md);
-  border-bottom-left-radius: var(--border-radius-md); */
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: transparent;
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--border-radius-md);
   
   /* Layout */
   display: flex;
@@ -119,8 +177,8 @@
   pointer-events: auto;
   
   /* Glass morphism effect */
-  backdrop-filter: var(--glass-blur, blur(20px));
-  -webkit-backdrop-filter: var(--glass-blur, blur(20px));
+  backdrop-filter: var(--glass-blur-md);
+  -webkit-backdrop-filter: var(--glass-blur-md);
   
   /* Performance optimization */
   will-change: transform;
@@ -134,11 +192,66 @@
 /* Common navigation list styles */
 .main-nav ul,
 .section-nav ul {
-  display: flex;
-  gap: var(--nav-gap-default);
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
+}
+
+/* Section navigation specific layout - single row with equal spacing */
+.section-nav ul {
+  display: flex;
+  gap: var(--nav-gap-default);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main navigation with perfect logo centering */
+.main-nav ul {
+  display: grid;
+  grid-template-areas: "left center right";
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  gap: var(--nav-gap-default);
+}
+
+/* Left menu items */
+.main-nav .nav-left {
+  grid-area: left;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--nav-gap-default);
+}
+
+/* List items within nav-left should not have additional layout */
+.main-nav .nav-left li {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo container - perfectly centered */
+.main-nav ul li.logo-container {
+  grid-area: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Right menu items */
+.main-nav .nav-right {
+  grid-area: right;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--nav-gap-default);
+}
+
+/* List items within nav-right should not have additional layout */
+.main-nav .nav-right li {
+  display: flex;
+  align-items: center;
 }
 
 /* Common link styles */
@@ -152,23 +265,23 @@
 
 /* Main navigation specific styles */
 .main-nav a {
-  font-family: var(--main-menu-font-family, var(--font-family-base));
-  font-size: var(--main-menu-font-size, 1rem);
-  font-weight: var(--main-menu-font-weight, 300);
-  line-height: var(--main-menu-line-height, 1.5);
-  letter-spacing: var(--main-menu-letter-spacing, -0.025em);
-  text-transform: var(--main-menu-text-transform, none);
-  padding: 0 var(--main-menu-padding) 4px var(--main-menu-padding);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-tight);
+  text-transform: none;
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) var(--spacing-sm);
 }
 
 /* Sub navigation specific styles */
 .section-nav a {
-  font-family: var(--sub-menu-font-family, var(--font-family-base));
-  font-size: var(--sub-menu-font-size, 0.875rem);
-  font-weight: var(--sub-menu-font-weight, 400);
-  line-height: var(--sub-menu-line-height, 1.5);
-  letter-spacing: var(--sub-menu-letter-spacing, -0.025em);
-  text-transform: var(--sub-menu-text-transform, none);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-tight);
+  text-transform: none;
   padding-bottom: 4px;
 }
 
@@ -189,22 +302,19 @@
   font-weight: var(--font-weight-semibold, 600);
 }
 
-/* Optional: Active indicator underline
-   Uncomment to enable underline for active sub-menu items */
-/*
-.section-nav a.active::after {
+/* Active indicator underline for main menu items */
+/* .main-nav a.active::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
+  bottom: -1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 2px;
   background-color: var(--color-text);
-  transform: scaleX(1);
-  transform-origin: left center;
-  transition: transform 0.3s ease;
-}
-*/
+  border-radius: 1px;
+  transition: all 0.3s ease;
+} */
 
 /* ========================================
    6. Responsive Design
@@ -219,22 +329,30 @@
   .glass-header,
   .sub-menu-header {
     max-width: 95vw;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs);
   }
   
   .main-nav a {
-    font-size: calc(var(--main-menu-font-size) * 0.9);
-    padding: 0 var(--spacing-xs) 4px var(--spacing-xs);
+    font-size: calc(var(--font-size-base) * 0.9);
+    padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-xs);
   }
   
   .section-nav a {
-    font-size: calc(var(--sub-menu-font-size) * 0.9);
+    font-size: calc(var(--font-size-sm) * 0.9);
   }
 }
 
 /* Mobile adjustments */
 @media (max-width: 480px) {
-  .main-nav ul,
+  .main-nav ul {
+    gap: var(--spacing-xs);
+  }
+  
+  .main-nav .nav-left,
+  .main-nav .nav-right {
+    gap: var(--spacing-xs);
+  }
+  
   .section-nav ul {
     gap: var(--spacing-xs);
   }
@@ -251,6 +369,184 @@
   .sub-menu-header,
   .main-nav a,
   .section-nav a {
+    transition: none;
+  }
+}
+
+/* ========================================
+   7. Logo Styles
+   ======================================== */
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  position: relative;
+}
+
+.logo-container a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-container a:hover {
+  opacity: 0.8;
+}
+
+.nav-logo {
+  height: 2.5rem;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Theme-specific logo visibility */
+body:not(.dark-theme) .dark-logo {
+  display: none;
+}
+
+body:not(.dark-theme) .light-logo {
+  display: block;
+}
+
+body.dark-theme .light-logo {
+  display: none;
+}
+
+body.dark-theme .dark-logo {
+  display: block;
+}
+
+/* ========================================
+   8. Glass Footer Styles
+   ======================================== */
+
+/* Glass footer base styles - similar to glass header but smaller */
+.glass-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: 60vw;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--glass-bg);
+  
+  /* Glass morphism effect */
+  backdrop-filter: var(--glass-blur-sm);
+  -webkit-backdrop-filter: var(--glass-blur-sm);
+  
+  /* Border styling */
+  border: 1px solid var(--glass-border-light);
+  border-top-left-radius: var(--border-radius-sm);
+  border-top-right-radius: var(--border-radius-sm);
+  border-bottom: none;
+  
+  /* Layout */
+  z-index: var(--z-index-main-menu);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Performance optimization */
+  will-change: transform;
+  transition: var(--nav-transition-default);
+}
+
+/* Footer container for internal layout */
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Footer content wrapper */
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Footer text container */
+.footer-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+/* Footer text styles */
+.footer-text .copyright,
+.footer-text .mvp-text {
+  font-family: var(--font-family-base);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: var(--nav-transition-hover);
+}
+
+/* Copyright text styling */
+.footer-text .copyright {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-light);
+  line-height: 1.2;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* MVP text styling */
+.footer-text .mvp-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.2;
+  letter-spacing: var(--letter-spacing-wide);
+  opacity: 0.8;
+}
+
+/* Hover effect for footer */
+.glass-footer:hover .footer-text .copyright,
+.glass-footer:hover .footer-text .mvp-text {
+  color: var(--color-text);
+  opacity: 1;
+}
+
+/* Responsive adjustments for footer */
+@media (max-width: 768px) {
+  .glass-footer {
+    max-width: 80vw;
+    padding: var(--spacing-xs);
+  }
+  
+  .footer-text .copyright,
+  .footer-text .mvp-text {
+    font-size: calc(var(--font-size-xs) * 0.9);
+  }
+}
+
+@media (max-width: 480px) {
+  .glass-footer {
+    max-width: 90vw;
+  }
+  
+  .footer-text {
+    gap: 1px;
+  }
+  
+  .footer-text .copyright,
+  .footer-text .mvp-text {
+    font-size: calc(var(--font-size-xs) * 0.85);
+  }
+}
+
+/* Reduced motion preference for footer */
+@media (prefers-reduced-motion: reduce) {
+  .glass-footer {
     transition: none;
   }
 }

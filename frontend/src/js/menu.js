@@ -8,12 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
       mainMenuContainer.innerHTML = data;
       document.body.insertBefore(mainMenuContainer, document.body.firstChild);
       
-      // Initialize main navigation
-      initializeMainNav();
-      
-      // No need to load sub-menu for home page as default
+      // Load and initialize sub-menu
+      return loadSubMenuContainer();
     })
-    .catch(error => console.error('Error loading main menu:', error));
+    .then(() => {
+      // Load footer after menu components
+      return loadFooter();
+    })
+    .then(() => {
+      // Initialize main navigation after all components are loaded
+      initializeMainNav();
+      initializeHoverMenu();
+    })
+    .catch(error => console.error('Error loading menu components:', error));
 });
 
 let combinedSubMenuContent = null; // Cache for sub-menu HTML
@@ -39,6 +46,135 @@ async function fetchCombinedSubMenu() {
   return combinedSubMenuContent;
 }
 
+// Function to load sub-menu container initially
+async function loadSubMenuContainer() {
+  const fullSubMenuHTML = await fetchCombinedSubMenu();
+  
+  if (!fullSubMenuHTML || !fullSubMenuHTML.trim()) {
+    console.error('Sub-menu content could not be loaded or is empty.');
+    return;
+  }
+
+  // Insert sub-menu container after main menu
+  const mainMenuContainer = document.getElementById('main-menu-container');
+  if (mainMenuContainer) {
+    mainMenuContainer.insertAdjacentHTML('afterend', fullSubMenuHTML);
+    
+    // Initialize sub-menu navigation for all sections
+    initializeSubMenuNav();
+  }
+}
+
+// Function to initialize hover menu functionality
+// Sub-menus can be shown both by hover and by click
+// When clicked, sub-menus stay visible until user clicks elsewhere or toggles the same menu item
+function initializeHoverMenu() {
+  const hasSubMenuItems = document.querySelectorAll('.has-submenu');
+  const subMenuContainer = document.getElementById('sub-menu-container');
+  const logoContainer = document.querySelector('.logo-container');
+  const mainMenuContainer = document.getElementById('main-menu-container');
+  
+  let hideTimeout;
+  
+  function showSubMenuContainer() {
+    // Show sub-menu container
+    if (subMenuContainer) {
+      subMenuContainer.classList.add('show');
+    }
+    cancelHideSubMenu();
+  }
+  
+  function hideSubMenu() {
+    hideTimeout = setTimeout(() => {
+      // Only hide if the sub-menu wasn't activated by click
+      // Check if any main nav item is currently active (indicating click activation)
+      const activeMainNavItem = document.querySelector('#main-menu-container .main-nav a.active');
+      if (!activeMainNavItem) {
+        if (subMenuContainer) {
+          subMenuContainer.classList.remove('show');
+        }
+        const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+        allSubMenus.forEach(menu => menu.classList.remove('active'));
+      }
+    }, 200); // Small delay to allow moving between menu areas
+  }
+  
+  function cancelHideSubMenu() {
+    if (hideTimeout) {
+      clearTimeout(hideTimeout);
+      hideTimeout = null;
+    }
+  }
+  
+  // Show submenu container when hovering over any menu item (except logo)
+  hasSubMenuItems.forEach(item => {
+    const link = item.querySelector('a');
+    const submenuType = link.getAttribute('data-submenu');
+    
+    item.addEventListener('mouseenter', function() {
+      showSubMenuContainer();
+      
+      // Hide all sub-menus first
+      const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+      allSubMenus.forEach(menu => menu.classList.remove('active'));
+      
+      // Show the corresponding sub-menu
+      const targetSubMenu = document.getElementById(`sub-menu-${submenuType}`);
+      if (targetSubMenu) {
+        targetSubMenu.classList.add('active');
+      }
+    });
+  });
+  
+  // Handle main menu container hover - keep submenu visible when moving within menu
+  if (mainMenuContainer) {
+    mainMenuContainer.addEventListener('mouseenter', function(e) {
+      // Only show submenu if hovering over submenu items, not logo
+      if (!e.target.closest('.logo-container')) {
+        // Check if we're over a submenu item
+        const hasSubmenuParent = e.target.closest('.has-submenu');
+        if (hasSubmenuParent) {
+          showSubMenuContainer();
+        }
+      }
+      cancelHideSubMenu();
+    });
+    
+    mainMenuContainer.addEventListener('mouseleave', hideSubMenu);
+  }
+  
+  // Prevent logo from showing sub-menu
+  if (logoContainer) {
+    logoContainer.addEventListener('mouseenter', function() {
+      // Hide sub-menu when hovering over logo, but don't trigger the timeout
+      if (subMenuContainer) {
+        subMenuContainer.classList.remove('show');
+      }
+      const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+      allSubMenus.forEach(menu => menu.classList.remove('active'));
+      cancelHideSubMenu();
+    });
+  }
+  
+  // Keep submenu visible when hovering over submenu itself
+  if (subMenuContainer) {
+    subMenuContainer.addEventListener('mouseenter', cancelHideSubMenu);
+    subMenuContainer.addEventListener('mouseleave', hideSubMenu);
+  }
+
+  // Hide sub-menu when clicking outside of it
+  document.addEventListener('click', function(e) {
+    const isClickInsideMenu = e.target.closest('#main-menu-container') || e.target.closest('#sub-menu-container');
+    const activeMainNavItem = document.querySelector('#main-menu-container .main-nav a.active');
+    
+    if (!isClickInsideMenu && subMenuContainer && !activeMainNavItem) {
+      subMenuContainer.classList.remove('show');
+      const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+      allSubMenus.forEach(menu => menu.classList.remove('active'));
+    }
+  });
+}
+
 // Function to initialize main navigation
 function initializeMainNav() {
   const mainNavLinks = document.querySelectorAll('#main-menu-container .main-nav a');
@@ -46,13 +182,18 @@ function initializeMainNav() {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       const section = this.getAttribute('href').substring(1);
+      const submenuType = this.getAttribute('data-submenu');
       
       // Check if this is the logo link (points to home)
       if (section === 'home') {
-        // Remove any existing sub-menu
-        const existingSubMenu = document.getElementById('sub-menu-container');
-        if (existingSubMenu) {
-          existingSubMenu.remove();
+        // Hide all sub-menus for home
+        const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+        allSubMenus.forEach(menu => menu.classList.remove('active'));
+        
+        // Hide sub-menu container
+        const subMenuContainer = document.getElementById('sub-menu-container');
+        if (subMenuContainer) {
+          subMenuContainer.classList.remove('show');
         }
         
         // Load home page content directly
@@ -62,14 +203,55 @@ function initializeMainNav() {
         
         // Don't update main nav active state for logo clicks
         window.location.hash = `#${section}`;
-      } else {
-        // Load sub-menu for other sections
-        window.loadSubMenu(section);
-        updateMainNav(section);
-        window.location.hash = `#${section}`;
+      } else if (submenuType) {
+        // Check if this menu item is already active (to toggle)
+        const isCurrentlyActive = this.classList.contains('active');
+        const subMenuContainer = document.getElementById('sub-menu-container');
+        
+        if (isCurrentlyActive) {
+          // Toggle off: hide sub-menu and remove active states
+          if (subMenuContainer) {
+            subMenuContainer.classList.remove('show');
+          }
+          const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+          allSubMenus.forEach(menu => menu.classList.remove('active'));
+          
+          // Remove active state from all main nav items
+          const mainNavLinks = document.querySelectorAll('#main-menu-container .main-nav a');
+          mainNavLinks.forEach(link => link.classList.remove('active'));
+        } else {
+          // Show sub-menu container and corresponding sub-menu for items with submenu
+          if (subMenuContainer) {
+            subMenuContainer.classList.add('show');
+          }
+          
+          // Show corresponding sub-menu and update active states
+          showSubMenuSection(section);
+          updateMainNav(section);
+          
+          // Load default content for the section if available
+          if (window.loadContent) {
+            window.loadContent(section, '');
+          }
+          
+          window.location.hash = `#${section}`;
+        }
       }
     });
   });
+}
+
+// Function to show specific sub-menu section
+function showSubMenuSection(section) {
+  // Hide all sub-menus first
+  const allSubMenus = document.querySelectorAll('#sub-menu-container .section-nav');
+  allSubMenus.forEach(menu => menu.classList.remove('active'));
+  
+  // Show the corresponding sub-menu
+  const targetSubMenu = document.getElementById(`sub-menu-${section}`);
+  if (targetSubMenu) {
+    targetSubMenu.classList.add('active');
+  }
 }
 
 // Function to update main navigation active state
@@ -84,59 +266,39 @@ function updateMainNav(section) {
   });
 }
 
-// Function to load sub-menu based on selected section
+// Function to load sub-menu based on selected section (kept for backwards compatibility)
 // Make it available globally for router.js
-window.loadSubMenu = async function(section) {
-  const fullSubMenuHTML = await fetchCombinedSubMenu();
-
-  // Remove existing sub-menu if it exists
-  const existingSubMenu = document.getElementById('sub-menu-container');
-  if (existingSubMenu) {
-    existingSubMenu.remove();
-  }
-
-  if (!fullSubMenuHTML || !fullSubMenuHTML.trim()) {
-    console.error(`Sub-menu content could not be loaded or is empty. Cannot display sub-menu for ${section}.`);
-    return;
-  }
-
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = fullSubMenuHTML;
-  const subMenuContentDiv = tempDiv.querySelector(`#sub-menu-${section}-content`);
-
-  if (subMenuContentDiv && subMenuContentDiv.innerHTML.trim()) {
-    // Create a container for the sub-menu that will be a direct child of body
-    const subMenuContainer = document.createElement('div');
-    subMenuContainer.id = 'sub-menu-container';
-    subMenuContainer.innerHTML = subMenuContentDiv.innerHTML;
-    
-    // Add to body directly instead of the main-header
-    document.body.appendChild(subMenuContainer);
-    
-    initializeSubMenuNav(section);
-  } else {
-    console.error(`Sub-menu content for #sub-menu-${section}-content not found or is empty in sub-menu.html`);
-  }
+window.loadSubMenu = function(section) {
+  showSubMenuSection(section);
+  initializeSubMenuNav(section);
 };
 
 // Function to initialize sub-menu navigation
 function initializeSubMenuNav(parentSection) {
+  // Initialize all sub-menu links, not just the active section
   const subMenuLinks = document.querySelectorAll('#sub-menu-container .section-nav a');
   subMenuLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const subsection = this.getAttribute('href').substring(1);
-      updateSubMenuNav(subsection);
-      
-      // Load content for this subsection
-      if (window.loadContent) {
-        window.loadContent(parentSection, subsection);
-      }
-      
-      // Update URL hash
-      window.location.hash = `#${parentSection}/${subsection}`;
-    });
+    // Remove existing event listeners to prevent duplicates
+    link.removeEventListener('click', handleSubMenuClick);
+    link.addEventListener('click', handleSubMenuClick);
   });
+}
+
+// Separate function to handle sub-menu clicks
+function handleSubMenuClick(e) {
+  e.preventDefault();
+  const subsection = this.getAttribute('href').substring(1);
+  const parentSection = this.getAttribute('data-section');
+  
+  updateSubMenuNav(subsection);
+  
+  // Load content for this subsection
+  if (window.loadContent) {
+    window.loadContent(parentSection, subsection);
+  }
+  
+  // Update URL hash
+  window.location.hash = `#${parentSection}/${subsection}`;
 }
 
 // Function to update sub-menu navigation active state
@@ -149,4 +311,33 @@ function updateSubMenuNav(subsection) {
       link.classList.remove('active');
     }
   });
+}
+
+// Function to load footer
+async function loadFooter() {
+  try {
+    const response = await fetch('../src/components/footer.html');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const footerHTML = await response.text();
+    
+    if (!footerHTML.trim()) {
+      console.warn('Footer content is empty.');
+      return;
+    }
+    
+    // Insert footer at the end of main-container
+    const mainContainer = document.getElementById('main-container');
+    if (mainContainer) {
+      mainContainer.insertAdjacentHTML('beforeend', footerHTML);
+    } else {
+      // Fallback: append to body
+      document.body.insertAdjacentHTML('beforeend', footerHTML);
+    }
+    
+    console.log('Footer loaded successfully');
+  } catch (error) {
+    console.error('Error loading footer:', error);
+  }
 } 

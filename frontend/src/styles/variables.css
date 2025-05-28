@@ -1,20 +1,31 @@
 :root {
   /* ==== Theme Variables (Default: Light) ==== */
-  --color-bg: #dddddd; /* Light background */
+  --color-bg:rgb(225, 225, 225); /* Light background */
   --color-text: #0e0e0e; /* Dark text */
   --color-text-muted: #909090;
-  --color-accent: #3b82f6; /* Primary accent color */
-  --color-grid-line: rgba(108, 108, 108, 0.05);
+  --color-accent: #888888; /* Primary accent color */
+  --color-accent-secondary: #000000; /* Secondary accent color */
+  --color-grid-line: rgba(120, 120, 120, 0.05);
   --color-border: rgba(0, 0, 0, 0.1);
-  --glass-bg: rgba(180, 180, 180, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-bg-hover: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(0, 0, 0, 0.3);
   --glass-border-light: rgba(0, 0, 0, 0.2);
+  
+  /* Gradients */
+  --gradient-text: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
+  
+  /* Shadows */
+  --shadow-sm: 0 0 20px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 0 30px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 0 40px rgba(0, 0, 0, 0.3);
 
   /* Keep original color names for reference if needed, but don't use directly */
-  --_color-bg-dark-ref: #000000;
+  --_color-bg-dark-ref: #151515;
   --_color-bg-light-ref: #f1f1f1;
-  --_color-text-main-ref: #dadada; /* Original text assumed for dark */
-  --_color-text-muted-ref: #555555; /* Original muted text */
+  --_color-text-main-ref: #dadada;
+  --_color-text-muted-ref: #555555;
 
   /* ==== Spacing (rem-based) ==== */
   --spacing-xxs: 0.25rem;
@@ -58,26 +69,10 @@
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.025em;
 
-  /* ==== Menu Typography (Main Menu) ==== */
-  --main-menu-font-family: var(--font-family-base);
-  --main-menu-font-size: var(--font-size-base);
-  --main-menu-font-weight: var(--font-weight-light);
-  --main-menu-line-height: var(--line-height-normal);
-  --main-menu-letter-spacing: var(--letter-spacing-tight);
-  --main-menu-text-transform: none;
-  --main-menu-padding: var(--spacing-sm);
-  
-  /* ==== Menu Typography (Sub Menu) ==== */
-  --sub-menu-font-family: var(--font-family-base);
-  --sub-menu-font-size: var(--font-size-sm);
-  --sub-menu-font-weight: var(--font-weight-normal);
-  --sub-menu-line-height: var(--line-height-normal);
-  --sub-menu-letter-spacing: var(--letter-spacing-tight);
-  --sub-menu-text-transform: none;
-  --sub-menu-padding: var(--spacing-sm);
+
 
   /* ==== Layout / Grid ==== */
-  --grid-size: 40px;
+  --grid-size: 40px; /* 1cm at 96 DPI for real scale 1:1 */
   --max-width: 1200px;
 
   /* ==== Glassmorphism ==== */
@@ -92,17 +87,16 @@
   --border-radius-lg: 25px;
   --border-radius-xl: 35px;
   --border-radius-2xl: 50px;
-
 }
 
 body.dark-theme {
   /* ==== Dark Theme Overrides ==== */
-  --color-bg: var(--_color-bg-dark-ref); /* #0e0e0e */
-  --color-text: var(--_color-text-main-ref); /* #f1f1f1 */
-  --color-text-muted: var(--_color-text-muted-ref); /* #b3b3b3 */
-  --color-grid-line: rgba(20, 20, 20, 0.2);
+  --color-bg: var(--_color-bg-dark-ref);
+  --color-text: var(--_color-text-main-ref);
+  --color-text-muted: var(--_color-text-muted-ref);
+  --color-grid-line: rgba(120, 120, 120, 0.05);
   --color-border: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(80, 80, 80, 0.1);
+  --glass-bg: rgba(0, 0, 0, 0.7);
   --glass-border: rgba(150, 150, 150, 0.3);
   --glass-border-light: rgba(150, 150, 150, 0.2);
 }

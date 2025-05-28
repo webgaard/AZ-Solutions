@@ -1,5 +1,7 @@
 // Import home page module
 import { homePage } from './home.js';
+// Import team page module
+import { teamPage } from './team.js';
 
 // Simple router for handling content loading
 document.addEventListener('DOMContentLoaded', function() {
@@ -16,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       // Handle home page specially
       if (section === 'home') {
-        document.title = 'AZ Solutions - Home';
+        document.title = 'AZ Arch - Home';
         const homeContent = await homePage.loadContent();
         mainContent.innerHTML = homeContent;
         
@@ -29,9 +31,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if (window.i18n && window.i18n.updateDom) {
           window.i18n.updateDom();
         }
+      } else if (section === 'aboutus' && subsection === 'team') {
+        // Handle team section
+        document.title = 'AZ Arch - About Us - Team';
+        const teamContent = await teamPage.loadContent();
+        mainContent.innerHTML = teamContent;
+        
+        // Initialize team page interactions after content is loaded
+        setTimeout(() => {
+          teamPage.initializeInteractions();
+        }, 100);
+        
+        // Update i18n if available
+        if (window.i18n && window.i18n.updateDom) {
+          window.i18n.updateDom();
+        }
       } else {
         // Update document title with current navigation
-        document.title = `AZ Solutions - ${section.charAt(0).toUpperCase() + section.slice(1)} - ${subsection.charAt(0).toUpperCase() + subsection.slice(1)}`;
+        document.title = `AZ Arch - ${section.charAt(0).toUpperCase() + section.slice(1)} - ${subsection.charAt(0).toUpperCase() + subsection.slice(1)}`;
         
         // For demonstration, we'll just show a placeholder
         mainContent.innerHTML = `
@@ -58,12 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function getDefaultSubsection(section) {
     const defaults = {
       'home': '',
-      'portfolio': 'education',
-      'projects': 'residential',
-      'about': 'vision',
-      'contact': 'contact-info'
+      'discover': 'projects',
+      'blog': 'posts',
+      'joinus': 'signin',
+      'aboutus': 'vision'
     };
-    return defaults[section] || 'education';
+    return defaults[section] || 'projects';
   }
   
   // Check for URL hash on page load
@@ -72,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const hash = window.location.hash;
       if (hash) {
         const parts = hash.substring(1).split('/');
-        const section = parts[0] || 'portfolio';
+        const section = parts[0] || 'home';
         const subsection = parts[1] || getDefaultSubsection(section);
         
         // Load the appropriate menu and content

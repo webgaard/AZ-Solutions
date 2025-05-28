@@ -1,14 +1,14 @@
 {
   "global": {
-    "appTitle": "AZ Solutions",
+    "appTitle": "AZ Arch",
     "loading": "Loading..."
   },
   "navigation": {
     "discover": "Discover",
-    "portfolio": "Portfolio",
-    "mag": "Mag",
-    "aboutus": "About Us",
-    "contact": "Contact"
+    "blog": "Blog",
+    "home": "Home",
+    "joinus": "Join Us",
+    "aboutus": "About Us"
   },
   "controls": {
     "dashboard": "Dashboard",
@@ -23,22 +23,22 @@
     "discover": {
       "projects": "Projects",
       "community": "Community",
-      "interviews": "Interviews",
+      "contents": "Contents",
       "events": "Events",
-      "resources": "Resources"
+      "competitions": "Competitions"
     },
-    "portfolio": {
-      "education": "Education",
-      "experience": "Experience",
-      "skills": "Skills",
-      "projects": "Projects"
+    "blog": {
+      "posts": "Posts",
+      "videos": "Videos",
+      "az10": "AZ10",
+      "insights": "Insights"
     },
-    "mag": {
-      "articles": "Articles",
-      "az10": "AZ10 (Review | Rate)"
+    "joinus": {
+      "signin": "Sign-Up/In",
+      "dashboard": "Dashboard"
     },
     "aboutus": {
-      "vision": "Vision & Values",
+      "vision": "Vision",
       "team": "Team",
       "contact": "Contact"
     }
@@ -46,5 +46,22 @@
   "language": {
     "en": "English",
     "fa": "فارسی"
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "Meet the passionate individuals behind AZ Arch"
+  },
+  "home": {
+    "blog": {
+      "title": "Blog",
+      "subtitle": "Latest insights and innovations in architecture and design",
+      "featured": "Featured",
+      "design": "Design",
+      "ai_title": "AI in Modern Architecture",
+      "ai_excerpt": "How artificial intelligence is revolutionizing architectural design...",
+      "sustainable_title": "Sustainable Design Trends",
+      "sustainable_excerpt": "Exploring eco-friendly architectural solutions...",
+      "read_more": "Read More →"
+    }
   }
 } 
